@@ -1,0 +1,8 @@
+* JELLO
+- https://github.com/kutlugsahin/react-smooth-dnd
+- https://docs.mongodb.com/ecosystem/drivers/csharp/
+
+** Features
+- github integration https://developer.github.com/apps/
+- embedded images & gifs
+- support markdown & org

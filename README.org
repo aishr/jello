@@ -5,4 +5,4 @@
 ** Features
 - github integration https://developer.github.com/apps/
 - embedded images & gifs
-- support markdown & org
+- support markdown and/or org

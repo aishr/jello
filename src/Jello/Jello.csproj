@@ -23,6 +23,11 @@
   <ItemGroup>
     <Folder Include="ClientApp\css\" />
   </ItemGroup>
+  
+
+  <Target Name="Gulp" BeforeTargets="Build">
+    <Exec Command="./node_modules/.bin/gulp" />
+  </Target>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->

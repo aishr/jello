@@ -21,7 +21,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\Login.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ClientApp\css\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\Login.tsx" />
   </ItemGroup>
   
 

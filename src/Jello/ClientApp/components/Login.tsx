@@ -12,10 +12,16 @@ class Login extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        var nav = document.getElementById("navHamLine");
-        if (nav) {
-            nav.setAttribute("style", "visibility: hidden;");
-        }
+        var body = document.body;
+        var burgerMenu = document.getElementsByClassName('b-menu')[0];
+        var burgerContain = document.getElementsByClassName('b-container')[0];
+        var burgerNav = document.getElementsByClassName('b-nav')[0];
+
+        burgerMenu.addEventListener('click', function toggleClasses() {
+            [body, burgerContain, burgerNav].forEach(function (el) {
+                el.classList.toggle('open');
+            });
+        }, false);
     }
 
     addLoginError(type: string) {
@@ -53,7 +59,8 @@ class Login extends React.Component<any, any> {
                     <form className="login-form" id="login-form">
                         <input type="text" placeholder="username" onChange={this.handleUsernameChange.bind(this)} />
                         <input type="password" placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
-                        <div className="button">login</div>
+                        <div onClick={this.addLoginError.bind(this)} className="button">login</div>
+                        <p>New User? Click Here To Register</p>
                     </form>
                 </div>}
             </div>

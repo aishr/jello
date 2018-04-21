@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\Cards.tsx" />
     <None Remove="ClientApp\components\Login.tsx" />
-    <None Remove="ClientApp\components\SimpleSortableList.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\components\Login.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\SimpleSortableList.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Cards.tsx" />
   </ItemGroup>
   
 

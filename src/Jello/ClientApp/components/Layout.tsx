@@ -9,10 +9,10 @@ export class Layout extends React.Component<LayoutProps, {}> {
     public render() {
         return <div className='container-fluid'>
             <div className='row'>
-                <div className='col-sm-3'>
+                <div className='nav-container'>
                     <NavMenu />
                 </div>
-                <div className='col-sm-9'>
+                <div className='main-body'>
                     { this.props.children }
                 </div>
             </div>

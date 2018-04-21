@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Container, Draggable } from 'react-smooth-dnd';
-import SimpleSortableList from './SimpleSortableList';
-
-const test = ["hi", "my", "name", "is", "ash"];
+import Cards from './Cards';
 
 class Home extends React.Component<any, any> {
 
@@ -23,9 +21,7 @@ class Home extends React.Component<any, any> {
     render() {
         return (
             <div>
-                <SimpleSortableList
-                    items={test}
-                />
+
             </div>
         );
     }

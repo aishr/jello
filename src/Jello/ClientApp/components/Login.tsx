@@ -9,6 +9,7 @@ class Login extends React.Component<any, any> {
             lPassword: "",
             rPassword: "",
             cPassword: "",
+            username: "",
             login: true,
             register: false
         }
@@ -114,6 +115,12 @@ class Login extends React.Component<any, any> {
         });
     }
 
+    handleUsernameChange(e: any) {
+        this.setState({
+            username: e.target.value
+        });
+    }
+
     handleRegisterPasswordChange(e: any) {
         this.setState({
             rPassword: e.target.value
@@ -155,6 +162,7 @@ class Login extends React.Component<any, any> {
                     <p className="login-redirect" onClick={this.openLoginConsole.bind(this)}>Back to Login</p>
                     <form className="login-form" id="login-form">
                         <input type="text" placeholder="email" value={this.state.email} onChange={this.handleEmailChange.bind(this)} />
+                        <input type="text" placeholder="username" onChange={this.handleUsernameChange.bind(this)} />
                         <input type="password" placeholder="password" onChange={this.handleRegisterPasswordChange.bind(this)} />
                         <input type="password" placeholder="confirm password" onChange={this.handleConfirmPasswordChange.bind(this)} />
                         <div onClick={this.register.bind(this)}className="button">register</div>

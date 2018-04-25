@@ -2,6 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Container, Draggable } from 'react-smooth-dnd';
 import Cards from './Cards';
+import BoardList from './BoardList';
 
 class Home extends React.Component<any, any> {
 
@@ -21,7 +22,7 @@ class Home extends React.Component<any, any> {
     render() {
         return (
             <div>
-
+                <BoardList />
             </div>
         );
     }

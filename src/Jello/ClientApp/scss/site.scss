@@ -302,6 +302,11 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     font-size: 16px;
 }
 
+.success-message {
+    color: green;
+    font-size: 16px;
+}
+
 .register-redirect {
     padding-top: 10px;
 

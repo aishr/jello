@@ -69,12 +69,21 @@ class Login extends React.Component<any, any> {
         }
         else if (type === 'password3') {
             message = "Passwords do not match";
-        } 
+        }
         else if (type === 'register') {
             message = "There is already an account with this email";
         }
         var errorMessage = '<p class="error-message">' + message + '</p>';
         $('.button').after(errorMessage);
+    }
+
+    addSuccess(type: string) {
+        var message = ""
+        if (type === 'redirect') {
+            message = "Registration was successful\nRedirecting in 5 seconds"
+        }
+        var successMessage = '<p class="success-message">' + message + '</p>';
+        $('.button').after(successMessage);
     }
 
     register() {
@@ -99,8 +108,27 @@ class Login extends React.Component<any, any> {
             this.addError('password3');
             return;
         }
-        location.reload();
-        return true;
+
+        const requestData = JSON.stringify({
+            "Email": this.state.email,
+            "Password": this.state.rPassword,
+            "Username": this.state.username
+        });
+
+        $.ajax({
+            url: '/Account/Register',
+            type: 'POST',
+            data: requestData,
+            contentType: 'application/json',
+            success: () => {
+                this.addSuccess('redirect');
+                window.location.reload();
+            },
+            error: () => {
+                this.addError('register');
+                return;
+            }
+        });
     }
 
     handleEmailChange(e: any) {

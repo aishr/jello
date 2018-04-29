@@ -6,12 +6,8 @@ class Login extends React.Component<any, any> {
         super();
         this.state = {
             email: "",
-            lPassword: "",
-            rPassword: "",
-            cPassword: "",
+            password: "",
             username: "",
-            login: true,
-            register: false
         }
     }
 
@@ -38,11 +34,29 @@ class Login extends React.Component<any, any> {
             this.addError('email2');
             return;
         }
-        if (this.state.lPassword == "") {
+        if (this.state.password == "") {
             this.addError('password1');
             return;
         }
-        return true;
+        const requestData = JSON.stringify({
+            "Email": this.state.email,
+            "Password": this.state.password,
+            "Username": this.state.email
+        });
+
+        $.ajax({
+            url: '/Account/Login',
+            type: 'GET',
+            data: requestData,
+            contentType: 'application/json',
+            success: () => {
+                window.location.replace("/home");
+            },
+            error: () => {
+                this.addError('login');
+                return;
+            }
+        });
     }
 
     validateEmail(email: string) {
@@ -64,71 +78,8 @@ class Login extends React.Component<any, any> {
         else if (type === 'login') {
             message = "The username or password is incorrect/invalid";
         }
-        else if (type === 'password2') {
-            message = "Please confirm your password";
-        }
-        else if (type === 'password3') {
-            message = "Passwords do not match";
-        }
-        else if (type === 'register') {
-            message = "There is already an account with this email";
-        }
         var errorMessage = '<p class="error-message">' + message + '</p>';
         $('.button').after(errorMessage);
-    }
-
-    addSuccess(type: string) {
-        var message = ""
-        if (type === 'redirect') {
-            message = "Registration was successful\nRedirecting in 5 seconds"
-        }
-        var successMessage = '<p class="success-message">' + message + '</p>';
-        $('.button').after(successMessage);
-    }
-
-    register() {
-        $('.error-message').remove();
-        if (this.state.email == "") {
-            this.addError('email1');
-            return;
-        }
-        if (!this.validateEmail(this.state.email)) {
-            this.addError('email2');
-            return;
-        }
-        if (this.state.rPassword == "") {
-            this.addError('password1');
-            return;
-        }
-        if (this.state.cPassword == "") {
-            this.addError('password2');
-            return;
-        }
-        if (this.state.rPassword !== this.state.cPassword) {
-            this.addError('password3');
-            return;
-        }
-
-        const requestData = JSON.stringify({
-            "Email": this.state.email,
-            "Password": this.state.rPassword,
-            "Username": this.state.username
-        });
-
-        $.ajax({
-            url: '/Account/Register',
-            type: 'POST',
-            data: requestData,
-            contentType: 'application/json',
-            success: () => {
-                this.addSuccess('redirect');
-                window.location.reload();
-            },
-            error: () => {
-                this.addError('register');
-                return;
-            }
-        });
     }
 
     handleEmailChange(e: any) {
@@ -137,9 +88,9 @@ class Login extends React.Component<any, any> {
         });
     }
 
-    handleLoginPasswordChange(e: any) {
+    handlePasswordChange(e: any) {
         this.setState({
-            lPassword: e.target.value
+            password: e.target.value
         });
     }
 
@@ -149,53 +100,15 @@ class Login extends React.Component<any, any> {
         });
     }
 
-    handleRegisterPasswordChange(e: any) {
-        this.setState({
-            rPassword: e.target.value
-        });
-    }
-
-    handleConfirmPasswordChange(e: any) {
-        this.setState({
-            cPassword: e.target.value
-        });
-    }
-
-    openRegisterConsole() {
-        this.setState({
-            login: false,
-            register: true
-        });
-    }
-
-    openLoginConsole() {
-        this.setState({
-            login: true,
-            register: false
-        });
-    }
-
     render() {
         return (
-            <div>
-                {this.state.login && <div className="form">
-                    <form className="login-form" id="login-form">
-                        <input type="text" placeholder="email" onChange={this.handleEmailChange.bind(this)} />
-                        <input type="password" placeholder="password" onChange={this.handleLoginPasswordChange.bind(this)} />
-                        <div onClick={this.login.bind(this)} className="button">login</div>
-                        <p className="register-redirect" onClick={this.openRegisterConsole.bind(this)}>New User? Click Here To Register</p>
-                    </form>
-                </div>}
-                {this.state.register && <div className="form">
-                    <p className="login-redirect" onClick={this.openLoginConsole.bind(this)}>Back to Login</p>
-                    <form className="login-form" id="login-form">
-                        <input type="text" placeholder="email" value={this.state.email} onChange={this.handleEmailChange.bind(this)} />
-                        <input type="text" placeholder="username" onChange={this.handleUsernameChange.bind(this)} />
-                        <input type="password" placeholder="password" onChange={this.handleRegisterPasswordChange.bind(this)} />
-                        <input type="password" placeholder="confirm password" onChange={this.handleConfirmPasswordChange.bind(this)} />
-                        <div onClick={this.register.bind(this)}className="button">register</div>
-                    </form>
-                </div>}
+            <div className="form">
+                <form className="login-form" id="login-form">
+                    <input type="text" placeholder="email" onChange={this.handleEmailChange.bind(this)} />
+                    <input type="password" placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
+                    <div onClick={this.login.bind(this)} className="button">login</div>
+                    <a href="/register">New User? Click Here To Register</a>
+                </form>
             </div>
         );
     }

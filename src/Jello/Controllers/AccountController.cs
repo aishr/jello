@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Jello.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
@@ -17,7 +18,6 @@ namespace Jello.Controllers
         {
             var client = new MongoClient(DBConnectionString);
             var database = client.GetDatabase("jello");
-            database.DropCollection("users");
             UsersCollection = database.GetCollection<Users>("users");
         }
 
@@ -35,6 +35,19 @@ namespace Jello.Controllers
             }
 
             return StatusCode(409);
+        }
+
+        [HttpGet]
+        public ActionResult Login([FromBody]Users requestData)
+        {
+            var filter = Builders<Users>.Filter.Eq("Email", requestData.Email);
+            var results = UsersCollection.Find(filter).FirstOrDefault();
+
+            if (results == null || requestData.Password != results.Password)
+            {
+                return Unauthorized();
+            }
+            return Ok();
         }
     }
 }

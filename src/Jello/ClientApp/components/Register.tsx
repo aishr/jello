@@ -125,7 +125,7 @@ class Register extends React.Component<any, any> {
 
     handlePasswordChange(e: any) {
         this.setState({
-            rPassword: e.target.value
+            password: e.target.value
         });
     }
 

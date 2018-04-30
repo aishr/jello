@@ -22,7 +22,7 @@ namespace Jello.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register([FromBody]Users requestData)
+        public ActionResult Register(Users requestData)
         {
             var filter = Builders<Users>.Filter.Eq("Email", requestData.Email);
             var results = UsersCollection.Find(filter).FirstOrDefault();
@@ -37,7 +37,7 @@ namespace Jello.Controllers
             return StatusCode(409);
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult Login([FromBody]Users requestData)
         {
             var filter = Builders<Users>.Filter.Eq("Email", requestData.Email);

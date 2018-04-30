@@ -39,14 +39,13 @@ class Login extends React.Component<any, any> {
             return;
         }
         const requestData = JSON.stringify({
-            "Email": this.state.email,
-            "Password": this.state.password,
-            "Username": this.state.email
+            Email: this.state.email,
+            Password: this.state.password
         });
 
         $.ajax({
             url: '/Account/Login',
-            type: 'GET',
+            type: 'POST',
             data: requestData,
             contentType: 'application/json',
             success: () => {

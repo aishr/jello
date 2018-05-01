@@ -1,9 +1,9 @@
-﻿using MongoDB.Bson;
+﻿using Microsoft.AspNetCore.Identity;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Jello.Models
 {
-    public class Users
+    public class User
     {
         [BsonId]
         public string Email { get; set; }

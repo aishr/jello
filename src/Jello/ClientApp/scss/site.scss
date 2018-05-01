@@ -325,3 +325,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
         cursor: pointer;
     }
 }
+
+.board-container {
+    padding: 100px;
+}

@@ -24,7 +24,7 @@ namespace Jello
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddIdentityWithMongoStores("mongodb://localhost:27017");
+            services.AddIdentityWithMongoStores("mongodb://localhost:27017/jello");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

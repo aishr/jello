@@ -51,7 +51,8 @@ class Login extends React.Component<any, any> {
             success: () => {
                 window.location.replace("/home");
             },
-            error: () => {
+            error: (errorData) => {
+                console.log(errorData);
                 this.addError('login');
                 return;
             }

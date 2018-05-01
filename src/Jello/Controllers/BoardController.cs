@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Jello.Controllers
 {
@@ -6,7 +7,28 @@ namespace Jello.Controllers
     {
         public BoardController()
         {
+        }
 
+        [HttpGet]
+        public ActionResult GetUserBoards()
+        {
+            var test = new Dictionary<string, List<string>>()
+            {
+                {"user", new List<string>()
+                    {
+                        "a",
+                        "b"
+                    }
+                },
+                {"shared" , new List<string>()
+                    {
+                        "c",
+                        "d"
+                    }
+                }
+            };
+
+            return Ok(test);
         }
     }
 }

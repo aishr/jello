@@ -1,22 +1,22 @@
 ﻿using Jello.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
-using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace Jello.Controllers
 {
+    using Microsoft.AspNetCore.Identity.MongoDB;
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
         [HttpPost]
-        public ActionResult Register(User requestData)
+        public ActionResult Register([FromBody]User requestData)
         {
             var user = new ApplicationUser()
             {
@@ -31,14 +31,13 @@ namespace Jello.Controllers
         [HttpPost]
         public ActionResult Login([FromBody]User requestData)
         {
-            var filter = Builders<User>.Filter.Eq("Email", requestData.Email);
-            var results = UsersCollection.Find(filter).FirstOrDefault();
-
-            if (results == null || requestData.Password != results.Password)
+            var user = new ApplicationUser()
             {
-                return Unauthorized();
-            }
-            return Ok();
+                Id = requestData.Email,
+            };
+            var result = _signInManager.CanSignInAsync(user);
+
+            return result.Result ? Ok() : StatusCode(401);
         }
     }
 }

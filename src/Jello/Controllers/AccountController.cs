@@ -1,53 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Jello.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Jello.Models;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
+using Microsoft.AspNetCore.Identity;
 
 namespace Jello.Controllers
 {
+    using Microsoft.AspNetCore.Identity.MongoDB;
     public class AccountController : Controller
     {
-        private readonly string DBConnectionString = "mongodb://localhost:27017";
-        private IMongoCollection<Users> UsersCollection;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AccountController()
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
-            var client = new MongoClient(DBConnectionString);
-            var database = client.GetDatabase("jello");
-            UsersCollection = database.GetCollection<Users>("users");
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+        [HttpPost]
+        public ActionResult Register([FromBody]User requestData)
+        {
+            var user = new IdentityUser()
+            {
+                Id = requestData.Email,
+                UserName = requestData.Username
+            };
+            var result = _userManager.CreateAsync(user, requestData.Password);
+
+            return result.Result.Succeeded ? Ok() : StatusCode(409);
         }
 
         [HttpPost]
-        public ActionResult Register(Users requestData)
+        public ActionResult Login([FromBody]User requestData)
         {
-            var filter = Builders<Users>.Filter.Eq("Email", requestData.Email);
-            var results = UsersCollection.Find(filter).FirstOrDefault();
-
-            if (results == null)
+            var user = new IdentityUser()
             {
-                UsersCollection.InsertOne(requestData);
+                Id = requestData.Email,
+            };
+            var result = _signInManager.CanSignInAsync(user);
 
-                return Ok();
-            }
-
-            return StatusCode(409);
-        }
-
-        [HttpPost]
-        public ActionResult Login([FromBody]Users requestData)
-        {
-            var filter = Builders<Users>.Filter.Eq("Email", requestData.Email);
-            var results = UsersCollection.Find(filter).FirstOrDefault();
-
-            if (results == null || requestData.Password != results.Password)
-            {
-                return Unauthorized();
-            }
-            return Ok();
+            return result.Result ? Ok() : StatusCode(401);
         }
     }
 }

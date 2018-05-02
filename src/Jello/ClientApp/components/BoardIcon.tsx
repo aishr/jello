@@ -1,16 +1,16 @@
 ﻿import * as React from 'react';
 import * as $ from 'jquery';
 
-class BoardList extends React.Component<any, any> {
+class BoardIcon extends React.Component<any, any> {
     constructor() {
         super();
     }
 
     render() {
         return (
-            <div>Hello My Name is Ash</div>
+            <div className="board-icon">{this.props.name}</div>
         );
     }
 }
 
-export default BoardList;
+export default BoardIcon;

@@ -8,8 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Contrib.Microsoft.AspNetCore.Identity.MongoDB" Version="2.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.MongoDB" Version="1.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
     <PackageReference Include="MongoDB.Driver" Version="2.6.0" />
   </ItemGroup>
@@ -24,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\components\BoardList.tsx" />
+    <None Remove="ClientApp\components\BoardIcon.tsx" />
     <None Remove="ClientApp\components\Cards.tsx" />
     <None Remove="ClientApp\components\Login.tsx" />
     <None Remove="ClientApp\components\Register.tsx" />
@@ -35,7 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\components\BoardList.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\BoardIcon.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Login.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Cards.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Register.tsx" />

@@ -45,6 +45,7 @@ namespace Jello
             }
 
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

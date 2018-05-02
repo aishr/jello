@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.MongoDB;
+using Microsoft.AspNetCore.Identity;
 
 namespace Jello
 {
@@ -25,6 +26,21 @@ namespace Jello
         {
             services.AddMvc();
             services.AddIdentityWithMongoStores("mongodb://localhost:27017/jello");
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                //Password settings
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = true;
+                options.Password.RequiredUniqueChars = 4;
+                options.Password.RequireUppercase = false;
+
+                //Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,6 +13,17 @@ class Home extends React.Component<any, any> {
     }
 
     componentDidMount() {
+        var body = document.body;
+        var burgerMenu = document.getElementsByClassName('b-menu')[0];
+        var burgerContain = document.getElementsByClassName('b-container')[0];
+        var burgerNav = document.getElementsByClassName('b-nav')[0];
+
+        burgerMenu.addEventListener('click', function toggleClasses() {
+            [body, burgerContain, burgerNav].forEach(function (el) {
+                el.classList.toggle('open');
+            });
+        }, false);
+
         this.getBoards();
     }
 
@@ -41,6 +52,7 @@ class Home extends React.Component<any, any> {
             <div>
                 {this.state.display &&
                     <div className="board-container">
+                        <h3>My Boards</h3>
                         {this.state.myBoards.map(function (name: string, key: number) {
                             return (
                                 <BoardIcon
@@ -51,6 +63,7 @@ class Home extends React.Component<any, any> {
                     </div>}
                 {this.state.display &&
                     <div className="board-container">
+                        <h3>Shared</h3>
                         {this.state.sharedBoards.map(function (name: string, key: number) {
                             return (
                                 <BoardIcon

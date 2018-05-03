@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.MongoDB;
 using Microsoft.AspNetCore.Identity;
+using Jello.Models;
 
 namespace Jello
 {
@@ -25,7 +26,7 @@ namespace Jello
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddIdentityWithMongoStores("mongodb://localhost:27017/jello");
+            services.AddIdentityWithMongoStoresUsingCustomTypes<ApplicationUser, Microsoft.AspNetCore.Identity.MongoDB.IdentityRole>("mongodb://localhost:27017/jello");
 
             services.Configure<IdentityOptions>(options =>
             {

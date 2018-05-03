@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Identity;
 namespace Jello.Controllers
 {
     using Microsoft.AspNetCore.Identity.MongoDB;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -16,28 +20,63 @@ namespace Jello.Controllers
             _signInManager = signInManager;
         }
         [HttpPost]
-        public ActionResult Register([FromBody]User requestData)
+        public async Task<ActionResult> Register([FromBody]User requestData)
         {
             var user = new IdentityUser()
             {
-                Id = requestData.Email,
+                Email = requestData.Email,
                 UserName = requestData.Username
             };
-            var result = _userManager.CreateAsync(user, requestData.Password);
+            try
+            {
+                var result = await _userManager.CreateAsync(user, requestData.Password);
 
-            return result.Result.Succeeded ? Ok() : StatusCode(409);
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+
+                var error = ((List<IdentityError>)result.Errors)[0];
+                    
+                return BadRequest(error.Description);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
-        public ActionResult Login([FromBody]User requestData)
+        public async Task<ActionResult> Login([FromBody]User requestData)
         {
             var user = new IdentityUser()
             {
-                Id = requestData.Email,
+                Email = requestData.Email
             };
-            var result = _signInManager.CanSignInAsync(user);
+            
+            try
+            {
+                await _userManager.UpdateSecurityStampAsync(user);
+                var result = await _signInManager.PasswordSignInAsync(user, requestData.Password, false, true);
 
-            return result.Result ? Ok() : StatusCode(401);
+                if (result.IsNotAllowed)
+                {
+                    return Unauthorized();
+                }
+                else if (result.IsLockedOut)
+                {
+                    return StatusCode(423);
+                }
+                else if (!result.Succeeded)
+                {
+                    return Unauthorized();
+                }
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Jello
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddIdentityWithMongoStoresUsingCustomTypes<ApplicationUser, Microsoft.AspNetCore.Identity.MongoDB.IdentityRole>("mongodb://localhost:27017/jello");
+            services.AddIdentityWithMongoStores("mongodb://localhost:27017/jello");
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -41,6 +41,8 @@ namespace Jello
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
+
+                options.User.RequireUniqueEmail = true;
             });
         }
 

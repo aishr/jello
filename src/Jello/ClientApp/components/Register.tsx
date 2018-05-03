@@ -30,7 +30,7 @@ class Register extends React.Component<any, any> {
         return re.test(email);
     }
 
-    addError(type: string) {
+    addError(type: string, errorMessage: string = "") {
         var message = "";
         if (type === 'email1') {
             message = "Please enter a email";
@@ -41,17 +41,14 @@ class Register extends React.Component<any, any> {
         else if (type === 'password1') {
             message = "Please enter a password";
         }
-        else if (type === 'login') {
-            message = "The username or password is incorrect/invalid";
-        }
         else if (type === 'password2') {
             message = "Please confirm your password";
         }
         else if (type === 'password3') {
             message = "Passwords do not match";
         }
-        else if (type === 'register') {
-            message = "There is already an account with this email";
+        else {
+            message = errorMessage;
         }
         var errorMessage = '<p class="error-message">' + message + '</p>';
         $('.button').after(errorMessage);
@@ -104,8 +101,8 @@ class Register extends React.Component<any, any> {
                 this.addSuccess('redirect');
                 window.location.replace("/");
             },
-            error: () => {
-                this.addError('register');
+            error: (responseData) => {
+                this.addError('', responseData.responseText);
                 return;
             }
         });

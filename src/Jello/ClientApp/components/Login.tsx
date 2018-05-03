@@ -52,7 +52,10 @@ class Login extends React.Component<any, any> {
                 window.location.replace("/home");
             },
             error: (errorData) => {
-                console.log(errorData);
+                if (errorData.status == 423) {
+                    this.addError('lockout');
+                    return;
+                }
                 this.addError('login');
                 return;
             }

@@ -109,7 +109,7 @@ class Login extends React.Component<any, any> {
                 <form className="login-form" id="login-form">
                     <input type="text" placeholder="email" onChange={this.handleEmailChange.bind(this)} />
                     <input type="password" placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
-                    <input type="checkbox" name="rememberMe" defaultValue="False" />
+                    <label className="container">Remember Me<input type="checkbox"/><span className="checkmark"></span></label>
                     <div onClick={this.login.bind(this)} className="button">login</div>
                     <a href="/register">New User? Click Here To Register</a>
                 </form>

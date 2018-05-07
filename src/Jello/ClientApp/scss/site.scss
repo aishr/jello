@@ -359,13 +359,17 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     cursor: pointer;
     font-size: 12px;
     user-select: none;
-    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 35px;
+    text-align: left;
 
     /* Hide the browser's default checkbox */
     input {
         position: absolute;
         opacity: 0;
         cursor: pointer;
+        width: 0px;
     }
 }
 

@@ -8,7 +8,9 @@ class Login extends React.Component<any, any> {
             email: "",
             password: "",
             username: "",
+            rememberMe: false
         }
+        console.log(this.state.rememberMe);
     }
 
     componentDidMount() {
@@ -103,13 +105,20 @@ class Login extends React.Component<any, any> {
         });
     }
 
+    handleRememberMe(e: any) {
+        this.setState({
+            rememberMe: !this.state.rememberMe
+        });
+        console.log(this.state.rememberMe);
+    }
+
     render() {
         return (
             <div className="form">
                 <form className="login-form" id="login-form">
                     <input type="text" placeholder="email" onChange={this.handleEmailChange.bind(this)} />
                     <input type="password" placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
-                    <label className="container">Remember Me<input type="checkbox"/><span className="checkmark"></span></label>
+                    <label onChange={this.handleRememberMe.bind(this)} className="container">Remember Me<input type="checkbox" /><span className="checkmark"></span></label>
                     <div onClick={this.login.bind(this)} className="button">login</div>
                     <a href="/register">New User? Click Here To Register</a>
                 </form>

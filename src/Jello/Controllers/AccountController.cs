@@ -51,7 +51,7 @@ namespace Jello.Controllers
         {
             try
             {
-                var result = await _signInManager.PasswordSignInAsync(requestData.Email, requestData.Password, false, true);
+                var result = await _signInManager.PasswordSignInAsync(requestData.Email, requestData.Password, requestData.IsPersistent, true);
 
                 if (result.IsNotAllowed || !result.Succeeded)
                 {

@@ -42,7 +42,8 @@ class Login extends React.Component<any, any> {
         }
         const requestData = JSON.stringify({
             Email: this.state.email,
-            Password: this.state.password
+            Password: this.state.password,
+            IsPersistent: this.state.rememberMe
         });
 
         $.ajax({
@@ -109,7 +110,6 @@ class Login extends React.Component<any, any> {
         this.setState({
             rememberMe: !this.state.rememberMe
         });
-        console.log(this.state.rememberMe);
     }
 
     render() {

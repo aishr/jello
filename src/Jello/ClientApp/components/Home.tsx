@@ -13,6 +13,8 @@ class Home extends React.Component<any, any> {
     }
 
     componentDidMount() {
+        this.isLoggedIn();
+
         var body = document.body;
         var burgerMenu = document.getElementsByClassName('b-menu')[0];
         var burgerContain = document.getElementsByClassName('b-container')[0];
@@ -27,6 +29,21 @@ class Home extends React.Component<any, any> {
         this.getBoards();
     }
 
+    isLoggedIn() {
+        $.ajax({
+            url: '/Account/GetCurrentUser',
+            type: 'GET',
+            success: (responseData) => {
+                this.setState({
+                    display: true
+                });
+            },
+            error: () => {
+                window.location.replace("/");
+            }
+        });
+    }
+
     getBoards() {
         $.ajax({
             url: '/Board/GetUserBoards',
@@ -34,8 +51,7 @@ class Home extends React.Component<any, any> {
             success: (responseData) => {
                 this.setState({
                     myBoards: responseData.user,
-                    sharedBoards: responseData.shared,
-                    display: true
+                    sharedBoards: responseData.shared
                 });
 
                 console.log(this.state);

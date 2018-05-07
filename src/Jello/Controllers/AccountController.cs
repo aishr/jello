@@ -24,8 +24,8 @@ namespace Jello.Controllers
         {
             var user = new IdentityUser()
             {
-                Email = requestData.Email,
-                UserName = requestData.Username
+                UserName = requestData.Email,
+                Email = requestData.Email
             };
             try
             {
@@ -49,17 +49,11 @@ namespace Jello.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromBody]User requestData)
         {
-            var user = new IdentityUser()
-            {
-                Email = requestData.Email
-            };
-            
             try
             {
-                await _userManager.UpdateSecurityStampAsync(user);
-                var result = await _signInManager.PasswordSignInAsync(user, requestData.Password, false, true);
+                var result = await _signInManager.PasswordSignInAsync(requestData.Email, requestData.Password, false, true);
 
-                if (result.IsNotAllowed)
+                if (result.IsNotAllowed || !result.Succeeded)
                 {
                     return Unauthorized();
                 }
@@ -67,16 +61,24 @@ namespace Jello.Controllers
                 {
                     return StatusCode(423);
                 }
-                else if (!result.Succeeded)
-                {
-                    return Unauthorized();
-                }
                 return Ok();
             }
             catch(Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetCurrentUser()
+        {
+            var result = await _userManager.GetUserAsync(HttpContext.User);
+            if (result != null)
+            {
+                return Ok();
+            }
+            return Unauthorized();
+
         }
     }
 }

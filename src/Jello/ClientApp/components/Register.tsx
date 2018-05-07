@@ -7,8 +7,7 @@ class Register extends React.Component<any, any> {
         this.state = {
             email: "",
             password: "",
-            cPassword: "",
-            username: "",
+            cPassword: ""
         }
     }
 
@@ -57,7 +56,7 @@ class Register extends React.Component<any, any> {
     addSuccess(type: string) {
         var message = ""
         if (type === 'redirect') {
-            message = "Registration was successful\nRedirecting in 5 seconds"
+            message = "Registration was successful Redirecting in 5 seconds"
         }
         var successMessage = '<p class="success-message">' + message + '</p>';
         $('.button').after(successMessage);
@@ -89,7 +88,6 @@ class Register extends React.Component<any, any> {
         const requestData = JSON.stringify({
             "Email": this.state.email,
             "Password": this.state.password,
-            "Username": this.state.username
         });
 
         $.ajax({
@@ -114,12 +112,6 @@ class Register extends React.Component<any, any> {
         });
     }
 
-    handleUsernameChange(e: any) {
-        this.setState({
-            username: e.target.value
-        });
-    }
-
     handlePasswordChange(e: any) {
         this.setState({
             password: e.target.value
@@ -137,7 +129,6 @@ class Register extends React.Component<any, any> {
             <div className="form">
                 <form className="login-form" id="login-form">
                     <input type="text" placeholder="email" value={this.state.email} onChange={this.handleEmailChange.bind(this)} />
-                    <input type="text" placeholder="username" onChange={this.handleUsernameChange.bind(this)} />
                     <input type="password" placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
                     <input type="password" placeholder="confirm password" onChange={this.handleConfirmPasswordChange.bind(this)} />
                     <div onClick={this.register.bind(this)} className="button">register</div>

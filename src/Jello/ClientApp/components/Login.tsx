@@ -10,7 +10,10 @@ class Login extends React.Component<any, any> {
             username: "",
             rememberMe: false
         }
-        console.log(this.state.rememberMe);
+    }
+
+    componentWillMount() {
+        document.addEventListener("keypress", this.handleEnterKeyPress.bind(this));
     }
 
     componentDidMount() {
@@ -110,6 +113,13 @@ class Login extends React.Component<any, any> {
         this.setState({
             rememberMe: !this.state.rememberMe
         });
+    }
+
+    handleEnterKeyPress(e: any) {
+        console.log("keypress");
+        if (e.charCode == 13 || e.keyCode == 13) {
+            this.login();
+        }
     }
 
     render() {

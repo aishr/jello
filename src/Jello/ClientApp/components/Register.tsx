@@ -11,6 +11,10 @@ class Register extends React.Component<any, any> {
         }
     }
 
+    componentWillMount() {
+        document.addEventListener("keypress", this.handleEnterKeyPress.bind(this));
+    }
+
     componentDidMount() {
         var body = document.body;
         var burgerMenu = document.getElementsByClassName('b-menu')[0];
@@ -122,6 +126,13 @@ class Register extends React.Component<any, any> {
         this.setState({
             cPassword: e.target.value
         });
+    }
+
+    handleEnterKeyPress(e: any) {
+        console.log("keypress");
+        if (e.charCode == 13 || e.keyCode == 13) {
+            this.register();
+        }
     }
 
     render() {

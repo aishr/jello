@@ -46,8 +46,33 @@ class Home extends React.Component<any, any> {
 
     getBoards() {
         $.ajax({
-            url: '/Board/GetUserBoards',
+            url: '/Home/GetUserBoards',
             type: 'GET',
+            success: (responseData) => {
+                this.setState({
+                    myBoards: responseData.user,
+                    sharedBoards: responseData.shared
+                });
+
+                console.log(this.state);
+            },
+            error: () => {
+                console.log("There was an error retrieving your boards");
+                return;
+            }
+        });
+    }
+
+    addBoard() {
+        const requestData = JSON.stringify({
+            UserCreatedBoards: ["a", "b"],
+            SharedBoards: ["c", "d"]
+        });
+        $.ajax({
+            url: '/Home/AddUserBoard',
+            type: 'POST',
+            data: requestData,
+            contentType: 'application/json',
             success: (responseData) => {
                 this.setState({
                     myBoards: responseData.user,
@@ -76,7 +101,8 @@ class Home extends React.Component<any, any> {
                                 />
                             );
                         })}
-                    </div>}
+                    </div>
+                }
                 {this.state.display &&
                     <div className="board-container">
                         <h3>Shared</h3>
@@ -87,6 +113,11 @@ class Home extends React.Component<any, any> {
                                 />
                             );
                         })}
+                    </div>
+                }
+                {this.state.display &&
+                    <div>
+                    <div onClick={this.addBoard.bind(this)} className="button">login</div>
                     </div>
                 }
             </div>

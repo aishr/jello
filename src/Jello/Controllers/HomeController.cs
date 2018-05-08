@@ -1,18 +1,24 @@
 using Jello.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Jello.Controllers
 {
+    using Microsoft.AspNetCore.Identity.MongoDB;
+    using System;
+
     public class HomeController : Controller
     {
         private MongoClient DbClient;
         private IMongoDatabase Database;
-        public HomeController()
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public HomeController(UserManager<IdentityUser> userManager)
         {
+            _userManager = userManager;
             if (DbClient == null)
             {
                 DbClient = new MongoClient("mongodb://localhost:27017/");
@@ -31,18 +37,61 @@ namespace Jello.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetUserBoards()
+        public async Task<ActionResult> GetUserBoards()
         {
+            var collection = Database.GetCollection<JelloBoard>("boards");
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var filter = Builders<JelloBoard>.Filter.Eq("_id", user.UserName);
+            var boards = await collection.Find(filter).FirstAsync();
 
-            return Ok();
+            return Ok(boards);
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddUserBoard([FromBody] Board requestData)
+        public async Task<ActionResult> AddUserToSharedBoard([FromBody]string requestData)
         {
-            var collection = Database.GetCollection<Board>("boards");
-            await collection.
-            return Ok();
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddUserBoard([FromBody] JelloUser requestData)
+        {
+            try
+            {
+                var collection = Database.GetCollection<JelloUser>("boards");
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+
+                var filter = Builders<JelloUser>.Filter.Eq("_id", user.UserName);
+                var boards = await collection.Find(filter).FirstAsync();
+                if (boards == null)
+                {
+                    requestData.Email = user.UserName;
+                    await collection.InsertOneAsync(requestData);
+                } 
+                else
+                {
+                    if (requestData.SharedBoards != null)
+                    {
+                        foreach (var boardName in requestData.SharedBoards)
+                        {
+                            boards.SharedBoards.Add(boardName);
+                        }
+                    }
+                    if (requestData.UserCreatedBoards != null)
+                    {
+                        foreach (var boardName in requestData.UserCreatedBoards)
+                        {
+                            boards.UserCreatedBoards.Add(boardName);
+                        }
+                    }
+                    await collection.FindOneAndReplaceAsync(filter, boards);
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

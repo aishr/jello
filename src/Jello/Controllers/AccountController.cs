@@ -20,7 +20,7 @@ namespace Jello.Controllers
             _signInManager = signInManager;
         }
         [HttpPost]
-        public async Task<ActionResult> Register([FromBody]User requestData)
+        public async Task<ActionResult> Register([FromBody]JelloUser requestData)
         {
             var user = new IdentityUser()
             {
@@ -47,7 +47,7 @@ namespace Jello.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login([FromBody]User requestData)
+        public async Task<ActionResult> Login([FromBody]JelloUser requestData)
         {
             try
             {

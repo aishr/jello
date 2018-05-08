@@ -33,7 +33,7 @@ class Home extends React.Component<any, any> {
         $.ajax({
             url: '/Account/GetCurrentUser',
             type: 'GET',
-            success: (responseData) => {
+            success: () => {
                 this.setState({
                     display: true
                 });
@@ -50,8 +50,8 @@ class Home extends React.Component<any, any> {
             type: 'GET',
             success: (responseData) => {
                 this.setState({
-                    myBoards: responseData.user,
-                    sharedBoards: responseData.shared
+                    myBoards: responseData.userCreatedBoards,
+                    sharedBoards: responseData.sharedBoards
                 });
 
                 console.log(this.state);
@@ -65,8 +65,7 @@ class Home extends React.Component<any, any> {
 
     addBoard() {
         const requestData = JSON.stringify({
-            UserCreatedBoards: ["a", "b"],
-            SharedBoards: ["c", "d"]
+            UserCreatedBoards: ["a", "b"]
         });
         $.ajax({
             url: '/Home/AddUserBoard',
@@ -117,7 +116,7 @@ class Home extends React.Component<any, any> {
                 }
                 {this.state.display &&
                     <div>
-                    <div onClick={this.addBoard.bind(this)} className="button">login</div>
+                    <div onClick={this.addBoard.bind(this)} className="button">Add New Board</div>
                     </div>
                 }
             </div>

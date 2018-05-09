@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity.MongoDB;
+using System.Collections.Generic;
 
 namespace Jello.Models
 {
-    public class JelloUser
+    public class JelloUser : IdentityUser
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public bool IsPersistent { get; set; }
+        public JelloUser()
+        {
+            UserCreatedBoards = new List<string>();
+            SharedBoards = new List<string>();
+        }
         public List<string> UserCreatedBoards { get; set; }
         public List<string> SharedBoards { get; set; }
     }

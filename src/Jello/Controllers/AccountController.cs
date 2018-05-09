@@ -1,28 +1,26 @@
 ﻿using Jello.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Jello.Controllers
 {
-    using Microsoft.AspNetCore.Identity.MongoDB;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<JelloUser> _userManager;
+        private readonly SignInManager<JelloUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<JelloUser> userManager, SignInManager<JelloUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
         [HttpPost]
-        public async Task<ActionResult> Register([FromBody]JelloUser requestData)
+        public async Task<ActionResult> Register([FromBody]UserData requestData)
         {
-            var user = new IdentityUser()
+            var user = new JelloUser()
             {
                 UserName = requestData.Email,
                 Email = requestData.Email
@@ -47,7 +45,7 @@ namespace Jello.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login([FromBody]JelloUser requestData)
+        public async Task<ActionResult> Login([FromBody]UserData requestData)
         {
             try
             {

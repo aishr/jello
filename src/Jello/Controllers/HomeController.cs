@@ -2,21 +2,20 @@ using Jello.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Jello.Controllers
 {
-    using Microsoft.AspNetCore.Identity.MongoDB;
-    using System;
-
     public class HomeController : Controller
     {
         private MongoClient DbClient;
         private IMongoDatabase Database;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<JelloUser> _userManager;
 
-        public HomeController(UserManager<IdentityUser> userManager)
+        public HomeController(UserManager<JelloUser> userManager)
         {
             _userManager = userManager;
             if (DbClient == null)
@@ -39,58 +38,54 @@ namespace Jello.Controllers
         [HttpGet]
         public async Task<ActionResult> GetUserBoards()
         {
-            var collection = Database.GetCollection<JelloBoard>("boards");
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-            var filter = Builders<JelloBoard>.Filter.Eq("_id", user.UserName);
-            var boards = await collection.Find(filter).FirstAsync();
-
-            return Ok(boards);
+            try
+            {
+                return Ok(await _userManager.GetUserAsync(HttpContext.User));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddUserToSharedBoard([FromBody]string requestData)
-        {
-
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> AddUserBoard([FromBody] JelloUser requestData)
+        public async Task<ActionResult> AddUserBoard([FromBody]JelloBoard requestData)
         {
             try
             {
-                var collection = Database.GetCollection<JelloUser>("boards");
                 var user = await _userManager.GetUserAsync(HttpContext.User);
+                requestData.Creator = user.UserName;
+                user.UserCreatedBoards.Add(requestData.Id);
+                await _userManager.UpdateAsync(user);
 
-                var filter = Builders<JelloUser>.Filter.Eq("_id", user.UserName);
-                var boards = await collection.Find(filter).FirstAsync();
-                if (boards == null)
-                {
-                    requestData.Email = user.UserName;
-                    await collection.InsertOneAsync(requestData);
-                } 
-                else
-                {
-                    if (requestData.SharedBoards != null)
-                    {
-                        foreach (var boardName in requestData.SharedBoards)
-                        {
-                            boards.SharedBoards.Add(boardName);
-                        }
-                    }
-                    if (requestData.UserCreatedBoards != null)
-                    {
-                        foreach (var boardName in requestData.UserCreatedBoards)
-                        {
-                            boards.UserCreatedBoards.Add(boardName);
-                        }
-                    }
-                    await collection.FindOneAndReplaceAsync(filter, boards);
-                }
+                var collection = Database.GetCollection<JelloBoard>("boards");
+                await collection.InsertOneAsync(requestData);
+
                 return Ok();
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddUserToSharedBoard([FromBody]JelloBoard requestData)
+        {
+            try
+            {
+                var collection = Database.GetCollection<JelloBoard>("boards");
+                var filter = Builders<JelloBoard>.Filter.Eq("Name", requestData.Name);
+                var board = await collection.Find(filter).FirstAsync();
+                foreach(var user in requestData.SharedUsers)
+                {
+                    board.SharedUsers
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

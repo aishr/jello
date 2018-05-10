@@ -137,12 +137,12 @@ class Register extends React.Component<any, any> {
 
     render() {
         return (
-            <div className="form">
+            <div className="auth-form-container">
                 <form className="login-form" id="login-form">
                     <input type="text" placeholder="email" value={this.state.email} onChange={this.handleEmailChange.bind(this)} />
                     <input type="password" placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
                     <input type="password" placeholder="confirm password" onChange={this.handleConfirmPasswordChange.bind(this)} />
-                    <div onClick={this.register.bind(this)} className="button">register</div>
+                    <div onClick={this.register.bind(this)} className="auth-button">register</div>
                 </form>
             </div>
         );

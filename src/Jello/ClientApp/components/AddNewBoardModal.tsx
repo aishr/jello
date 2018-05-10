@@ -7,7 +7,6 @@ class AddNewBoard extends React.Component<any, any> {
     }
 
     componentDidMount() { 
-
         var modal = document.getElementById('myModal');
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
@@ -62,8 +61,9 @@ class AddNewBoard extends React.Component<any, any> {
                             <h2>Add New Board</h2>
                         </div>
                         <div className="modal-body">
-                            <p>Some text in the Modal Body</p>
-                            <p>Some other text...</p>
+                            <form className="new-board-form">
+
+                            </form>
                         </div>
                     </div>
                 </div>

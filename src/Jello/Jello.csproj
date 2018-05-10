@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\AddNewBoardModal.tsx" />
     <None Remove="ClientApp\components\BoardIcon.tsx" />
     <None Remove="ClientApp\components\Cards.tsx" />
     <None Remove="ClientApp\components\Login.tsx" />
@@ -37,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\AddNewBoardModal.tsx" />
     <TypeScriptCompile Include="ClientApp\components\BoardIcon.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Login.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Cards.tsx" />

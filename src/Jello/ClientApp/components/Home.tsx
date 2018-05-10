@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as $ from 'jquery';
 import BoardIcon from './BoardIcon';
+import AddNewBoard from './AddNewBoardModal';
 
 class Home extends React.Component<any, any> {
     constructor() {
@@ -61,38 +62,14 @@ class Home extends React.Component<any, any> {
                 return;
             }
         });
-    }
-
-    addBoard() {
-        const requestData = JSON.stringify({
-            Name: "a"
-        });
-        $.ajax({
-            url: '/Home/AddUserBoard',
-            type: 'POST',
-            data: requestData,
-            contentType: 'application/json',
-            success: (responseData) => {
-                this.setState({
-                    myBoards: responseData.user,
-                    sharedBoards: responseData.shared
-                });
-
-                console.log(this.state);
-            },
-            error: () => {
-                console.log("There was an error retrieving your boards");
-                return;
-            }
-        });
-    }
+    } 
 
     render() {
         return (
             <div>
                 {this.state.display &&
                     <div>
-                        <div onClick={this.addBoard.bind(this)} className="new-board-button">Add New Board</div>
+                        <AddNewBoard />
                     </div>
                 }
                 {this.state.display &&

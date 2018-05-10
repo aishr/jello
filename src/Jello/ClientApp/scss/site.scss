@@ -53,6 +53,23 @@
     }
 }
 
+.new-board-button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #33CCC4;
+    width: 120px;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover, &:active, &:focus {
+        background: #33CCC4;
+    }
+}
+
 $color-stack: (group: primary, id: normal, color: #fff)
 ,
 (group: complement, id: normal, color: #444)
@@ -327,19 +344,22 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
 }
 
 .board-container {
-    padding-right: 100px;
+    padding-right: 30px;
     display: inline-block;
     padding-left: 30px;
-
-    h3 {
-        text-align: center;
-    }
+    min-height: 500px;
+    min-width: 400px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    vertical-align: top;
+    text-align: center;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: 15px;
 }
 
 .board-icon {
     padding: 10px;
     border: 1px solid #33CCC4;
-    width: 120px;
     height: 120px;
     margin: 10px;
     background-color: #33CCC4;

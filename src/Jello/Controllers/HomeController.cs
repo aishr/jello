@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -46,7 +45,6 @@ namespace Jello.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
         }
 
         [HttpPost]
@@ -80,12 +78,13 @@ namespace Jello.Controllers
                 var board = await collection.Find(filter).FirstAsync();
                 foreach(var user in requestData.SharedUsers)
                 {
-                    board.SharedUsers
+                    board.SharedUsers.Add(user);
                 }
+                return Ok();
             }
             catch (Exception ex)
             {
-
+                return BadRequest(ex.Message);
             }
         }
     }

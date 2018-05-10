@@ -65,7 +65,7 @@ class Home extends React.Component<any, any> {
 
     addBoard() {
         const requestData = JSON.stringify({
-            UserCreatedBoards: ["a", "b"]
+            Name: "a"
         });
         $.ajax({
             url: '/Home/AddUserBoard',
@@ -91,6 +91,11 @@ class Home extends React.Component<any, any> {
         return (
             <div>
                 {this.state.display &&
+                    <div>
+                        <div onClick={this.addBoard.bind(this)} className="new-board-button">Add New Board</div>
+                    </div>
+                }
+                {this.state.display &&
                     <div className="board-container">
                         <h3>My Boards</h3>
                         {this.state.myBoards.map(function (name: string, key: number) {
@@ -112,11 +117,6 @@ class Home extends React.Component<any, any> {
                                 />
                             );
                         })}
-                    </div>
-                }
-                {this.state.display &&
-                    <div>
-                    <div onClick={this.addBoard.bind(this)} className="button">Add New Board</div>
                     </div>
                 }
             </div>

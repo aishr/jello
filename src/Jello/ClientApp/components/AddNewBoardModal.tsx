@@ -62,7 +62,15 @@ class AddNewBoard extends React.Component<any, any> {
                         </div>
                         <div className="modal-body">
                             <form className="new-board-form">
-
+                                <h4>Orientation of the Columns</h4>
+                                <label className="radio-button-container">Vertical
+                                    <input type="radio" name="radio" />
+                                    <span className="radio-button" />
+                                </label>
+                                <label className="radio-button-container">Horizontal
+                                      <input type="radio" name="radio" />
+                                      <span className="radio-button" />
+                                </label>
                             </form>
                         </div>
                     </div>

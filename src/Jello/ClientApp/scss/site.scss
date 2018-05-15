@@ -516,6 +516,26 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     padding: 2px 16px;
 }
 
+.modal-footer {
+    padding: 2px 16px;
+    background-color: white;
+    color: white;
+}
+
+.footer-button {
+    border: 1px solid $accent-colour;
+    width: 270px;
+    padding: 10px;
+    background: $accent-colour;
+    cursor: pointer;
+    float: right;
+
+    &:hover {
+        background: white;
+        color: black;
+    }
+}
+
 .radio-button-container {
     display: inline-block;
     position: relative;
@@ -524,7 +544,6 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 12px;
-    //Instead of the line below you could use @include user-select($select)
     user-select: none;
     vertical-align: middle;
     line-height: 15px;
@@ -548,7 +567,6 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
         left: 5px;
         width: 5px;
         height: 5px;
-        //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
         border-radius: 50%;
         background: white;
     }
@@ -561,7 +579,6 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     height: 15px;
     width: 15px;
     background-color: #eee;
-    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
     border-radius: 50%;
 
     &:after {

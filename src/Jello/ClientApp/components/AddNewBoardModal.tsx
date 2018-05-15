@@ -31,7 +31,6 @@ class AddNewBoard extends React.Component<any, any> {
                     sharedBoards: responseData.shared
                 });
 
-                console.log(this.state);
             },
             error: () => {
                 console.log("There was an error retrieving your boards");
@@ -61,6 +60,10 @@ class AddNewBoard extends React.Component<any, any> {
                             <h2>Add New Board</h2>
                         </div>
                         <div className="modal-body">
+                            <form className="new-board-form">
+                                <h4>Board Name</h4>
+                                <input type="text" name="board-name" />
+                            </form>
                             <form className="new-board-form">
                                 <h4>Orientation of the Columns</h4>
                                 <label className="radio-button-container">Vertical
@@ -160,6 +163,9 @@ class AddNewBoard extends React.Component<any, any> {
                                     <span className="radio-button" />
                                 </label>
                             </form>
+                        </div>
+                        <div className="modal-footer">
+                            <h2 className="footer-button">Create New Board</h2>
                         </div>
                     </div>
                 </div>

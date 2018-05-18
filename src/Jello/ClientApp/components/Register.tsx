@@ -54,7 +54,7 @@ class Register extends React.Component<any, any> {
             message = errorMessage;
         }
         var errorMessage = '<p class="error-message">' + message + '</p>';
-        $('.button').after(errorMessage);
+        $('.auth-button').after(errorMessage);
     }
 
     addSuccess(type: string) {
@@ -63,7 +63,7 @@ class Register extends React.Component<any, any> {
             message = "Registration was successful Redirecting in 5 seconds"
         }
         var successMessage = '<p class="success-message">' + message + '</p>';
-        $('.button').after(successMessage);
+        $('.auth-button').after(successMessage);
     }
 
     register() {

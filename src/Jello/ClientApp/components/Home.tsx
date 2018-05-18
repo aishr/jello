@@ -51,11 +51,9 @@ class Home extends React.Component<any, any> {
             type: 'GET',
             success: (responseData) => {
                 this.setState({
-                    myBoards: responseData.userCreatedBoards,
+                    myBoards: responseData.userBoards,
                     sharedBoards: responseData.sharedBoards
                 });
-
-                console.log(this.state);
             },
             error: () => {
                 console.log("There was an error retrieving your boards");
@@ -74,11 +72,11 @@ class Home extends React.Component<any, any> {
                 }
                 {this.state.display &&
                     <div className="board-container">
-                        <h3>My Boards</h3>
-                        {this.state.myBoards.map(function (name: string, key: number) {
+                    <h3>My Boards</h3>
+                    {this.state.myBoards.map(function (item: any, key: number) {
                             return (
                                 <BoardIcon
-                                    name={name}
+                                    name={item.name}
                                 />
                             );
                         })}
@@ -87,10 +85,10 @@ class Home extends React.Component<any, any> {
                 {this.state.display &&
                     <div className="board-container">
                         <h3>Shared</h3>
-                        {this.state.sharedBoards.map(function (name: string, key: number) {
+                        {this.state.sharedBoards.map(function (item: any, key: number) {
                             return (
                                 <BoardIcon
-                                    name={name}
+                                    name={item.name}
                                 />
                             );
                         })}

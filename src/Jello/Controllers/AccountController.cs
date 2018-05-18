@@ -1,6 +1,7 @@
 ﻿using Jello.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,23 +12,38 @@ namespace Jello.Controllers
     {
         private readonly UserManager<JelloUser> _userManager;
         private readonly SignInManager<JelloUser> _signInManager;
+        private MongoClient DbClient;
+        private IMongoDatabase Database;
 
         public AccountController(UserManager<JelloUser> userManager, SignInManager<JelloUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            if (DbClient == null)
+            {
+                DbClient = new MongoClient("mongodb://localhost:27017/");
+                Database = DbClient.GetDatabase("jello");
+            }
         }
         [HttpPost]
         public async Task<ActionResult> Register([FromBody]UserData requestData)
         {
+            var firstBoard = new JelloBoard()
+            {
+                Creator = requestData.Email,
+                Name = "StarterBoard"
+            };
             var user = new JelloUser()
             {
                 UserName = requestData.Email,
-                Email = requestData.Email
+                Email = requestData.Email,
             };
+            user.UserBoards.Add(firstBoard.ToBoardData());
             try
             {
+                var collection = Database.GetCollection<JelloBoard>("boards");
                 var result = await _userManager.CreateAsync(user, requestData.Password);
+                await collection.InsertOneAsync(firstBoard);
 
                 if (result.Succeeded)
                 {

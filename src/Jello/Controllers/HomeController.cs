@@ -54,7 +54,7 @@ namespace Jello.Controllers
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
                 requestData.Creator = user.UserName;
-                user.UserCreatedBoards.Add(requestData.Id);
+                user.UserBoards.Add(requestData.ToBoardData());
                 await _userManager.UpdateAsync(user);
 
                 var collection = Database.GetCollection<JelloBoard>("boards");

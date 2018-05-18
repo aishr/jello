@@ -7,10 +7,10 @@ namespace Jello.Models
     {
         public JelloUser()
         {
-            UserCreatedBoards = new List<string>();
-            SharedBoards = new List<string>();
+            UserBoards = new List<BoardData>();
+            SharedBoards = new List<BoardData>();
         }
-        public List<string> UserCreatedBoards { get; set; }
-        public List<string> SharedBoards { get; set; }
+        public List<BoardData> UserBoards { get; set; }
+        public List<BoardData> SharedBoards { get; set; }
     }
 }

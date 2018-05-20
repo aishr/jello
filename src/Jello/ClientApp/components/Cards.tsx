@@ -33,12 +33,6 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
 const columnNames = ['Lorem', 'Ipsum', 'Consectetur', 'Eiusmod'];
 
-const cardColors = ['azure', 'beige', 'bisque', 'blanchedalmond', 'burlywood', 'cornsilk', 'gainsboro', 'ghostwhite', 'ivory', 'khaki'];
-const pickColor = () => {
-    let rand = Math.floor((Math.random() * 10));
-    return cardColors[rand];
-};
-
 class Cards extends React.Component<any, any> {
     constructor() {
         super();
@@ -60,12 +54,12 @@ class Cards extends React.Component<any, any> {
                         orientation: 'vertical',
                         className: 'card-container'
                     },
-                    children: generateItems(+(Math.random() * 10).toFixed() + 5, (j) => ({
+                    children: generateItems(5, (j) => ({
                         type: 'draggable',
                         id: `${i}${j}`,
                         props: {
                             className: 'card',
-                            style: { backgroundColor: pickColor() }
+                            style: { backgroundColor: 'white' }
                         },
                         data: lorem.slice(0, Math.floor(Math.random() * 150) + 30)
                     }))

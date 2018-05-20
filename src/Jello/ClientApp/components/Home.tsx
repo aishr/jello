@@ -13,6 +13,21 @@ class Home extends React.Component<any, any> {
         }
     }
 
+    isLoggedIn() {
+        $.ajax({
+            url: '/Account/GetCurrentUser',
+            type: 'GET',
+            success: () => {
+                this.setState({
+                    display: true
+                });
+            },
+            error: () => {
+                window.location.replace("/");
+            }
+        });
+    }
+
     componentDidMount() {
         this.isLoggedIn();
 
@@ -28,22 +43,7 @@ class Home extends React.Component<any, any> {
         }, false);
 
         this.getBoards();
-    }
-
-    isLoggedIn() {
-        $.ajax({
-            url: '/Account/GetCurrentUser',
-            type: 'GET',
-            success: () => {
-                this.setState({
-                    display: true
-                });
-            },
-            error: () => {
-                window.location.replace("/");
-            }
-        });
-    }
+    } 
 
     getBoards() {
         $.ajax({
@@ -65,35 +65,29 @@ class Home extends React.Component<any, any> {
     render() {
         return (
             <div>
-                {this.state.display &&
-                    <div>
-                        <AddNewBoard />
-                    </div>
-                }
-                {this.state.display &&
-                    <div className="board-container">
+                {this.state.display && <div>
+                    <AddNewBoard />
+                </div>}
+                {this.state.display && <div className="board-container">
                     <h3>My Boards</h3>
                     {this.state.myBoards.map(function (item: any, key: number) {
-                            return (
-                                <BoardIcon
-                                    name={item.name}
-                                />
-                            );
-                        })}
-                    </div>
-                }
-                {this.state.display &&
-                    <div className="board-container">
-                        <h3>Shared</h3>
-                        {this.state.sharedBoards.map(function (item: any, key: number) {
-                            return (
-                                <BoardIcon
-                                    name={item.name}
-                                />
-                            );
-                        })}
-                    </div>
-                }
+                        return (
+                            <BoardIcon
+                                name={item.name}
+                            />
+                        );
+                    })}
+                </div>}
+                {this.state.display && <div className="board-container">
+                    <h3>Shared</h3>
+                    {this.state.sharedBoards.map(function (item: any, key: number) {
+                        return (
+                            <BoardIcon
+                                name={item.name}
+                            />
+                        );
+                    })}
+                </div>}
             </div>
         );
     }

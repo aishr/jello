@@ -8,7 +8,8 @@ class Login extends React.Component<any, any> {
             email: "",
             password: "",
             username: "",
-            rememberMe: false
+            rememberMe: false,
+            display: false
         }
     }
 
@@ -17,16 +18,23 @@ class Login extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        var body = document.body;
-        var burgerMenu = document.getElementsByClassName('b-menu')[0];
-        var burgerContain = document.getElementsByClassName('b-container')[0];
-        var burgerNav = document.getElementsByClassName('b-nav')[0];
+        $('.nav-container').remove();
+        this.isLoggedIn();
+    }
 
-        burgerMenu.addEventListener('click', function toggleClasses() {
-            [body, burgerContain, burgerNav].forEach(function (el) {
-                el.classList.toggle('open');
-            });
-        }, false);
+    isLoggedIn() {
+        $.ajax({
+            url: '/Account/GetCurrentUser',
+            type: 'GET',
+            success: () => {
+                window.location.replace("/home"); 
+            },
+            error: () => {
+                this.setState({
+                    display: true
+                });
+            }
+        });
     }
 
     login() {
@@ -125,13 +133,15 @@ class Login extends React.Component<any, any> {
     render() {
         return (
             <div className="auth-form-container">
-                <form className="login-form" id="login-form">
-                    <input type="text" placeholder="email" onChange={this.handleEmailChange.bind(this)} />
-                    <input type="password" placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
-                    <label onChange={this.handleRememberMe.bind(this)} className="checkmark-container">Remember Me<input type="checkbox" /><span className="checkmark"></span></label>
-                    <div onClick={this.login.bind(this)} className="auth-button">login</div>
-                    <a href="/register">New User? Click Here To Register</a>
-                </form>
+                {this.state.display &&
+                    <form className="login-form" id="login-form">
+                        <input type="text" placeholder="email" onChange={this.handleEmailChange.bind(this)} />
+                        <input type="password" placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
+                        <label onChange={this.handleRememberMe.bind(this)} className="checkmark-container">Remember Me<input type="checkbox" /><span className="checkmark"></span></label>
+                        <div onClick={this.login.bind(this)} className="auth-button">login</div>
+                        <a href="/register">New User? Click Here To Register</a>
+                    </form>
+                }
             </div>
         );
     }

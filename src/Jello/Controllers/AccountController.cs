@@ -43,10 +43,10 @@ namespace Jello.Controllers
             {
                 var collection = Database.GetCollection<JelloBoard>("boards");
                 var result = await _userManager.CreateAsync(user, requestData.Password);
-                await collection.InsertOneAsync(firstBoard);
 
                 if (result.Succeeded)
                 {
+                    await collection.InsertOneAsync(firstBoard);
                     return Ok();
                 }
 
@@ -92,7 +92,14 @@ namespace Jello.Controllers
                 return Ok();
             }
             return Unauthorized();
+        }
 
+        [HttpPost]
+        public async Task<ActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return Ok();
         }
     }
 }

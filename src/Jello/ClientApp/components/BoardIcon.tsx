@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import * as $ from 'jquery';
 
 class BoardIcon extends React.Component<any, any> {
     constructor() {

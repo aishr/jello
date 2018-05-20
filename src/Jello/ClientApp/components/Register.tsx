@@ -7,7 +7,8 @@ class Register extends React.Component<any, any> {
         this.state = {
             email: "",
             password: "",
-            cPassword: ""
+            cPassword: "",
+            loginReturn: false
         }
     }
 
@@ -16,16 +17,23 @@ class Register extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        var body = document.body;
-        var burgerMenu = document.getElementsByClassName('b-menu')[0];
-        var burgerContain = document.getElementsByClassName('b-container')[0];
-        var burgerNav = document.getElementsByClassName('b-nav')[0];
+        $('.nav-container').remove();
+        this.isLoggedIn();
+    }
 
-        burgerMenu.addEventListener('click', function toggleClasses() {
-            [body, burgerContain, burgerNav].forEach(function (el) {
-                el.classList.toggle('open');
-            });
-        }, false);
+    isLoggedIn() {
+        $.ajax({
+            url: '/Account/GetCurrentUser',
+            type: 'GET',
+            success: () => {
+                window.location.replace("/home");
+            },
+            error: () => {
+                this.setState({
+                    display: true
+                });
+            }
+        });
     }
 
     validateEmail(email: string) {
@@ -60,7 +68,7 @@ class Register extends React.Component<any, any> {
     addSuccess(type: string) {
         var message = ""
         if (type === 'redirect') {
-            message = "Registration was successful Redirecting in 5 seconds"
+            message = "Registration was successful"
         }
         var successMessage = '<p class="success-message">' + message + '</p>';
         $('.auth-button').after(successMessage);
@@ -101,7 +109,10 @@ class Register extends React.Component<any, any> {
             contentType: 'application/json',
             success: () => {
                 this.addSuccess('redirect');
-                window.location.replace("/");
+                this.setState({
+                    loginReturn: true
+                });
+
             },
             error: (responseData) => {
                 this.addError('', responseData.responseText);
@@ -143,6 +154,7 @@ class Register extends React.Component<any, any> {
                     <input type="password" placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
                     <input type="password" placeholder="confirm password" onChange={this.handleConfirmPasswordChange.bind(this)} />
                     <div onClick={this.register.bind(this)} className="auth-button">register</div>
+                    {this.state.loginReturn && <a href="/">Back to Login</a>}
                 </form>
             </div>
         );

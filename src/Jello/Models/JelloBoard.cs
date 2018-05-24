@@ -14,6 +14,11 @@ namespace Jello.Models
         public string Creator { get; set; }
         public string Name { get; set; }
         public List<string> SharedUsers { get; set; }
+        public List<string> ColumnNames { get; set; }
+        public string Orientation { get; set; }
+        public bool IsColumnDraggable { get; set; }
+        public bool LockCardsToColumn { get; set; }
+        public List<JelloColumn> ColumnContents { get; set; }
 
         public BoardData ToBoardData()
         {

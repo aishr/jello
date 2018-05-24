@@ -27,11 +27,7 @@ export const applyDrag = (arr, dragResult) => {
     return result;
 };
 
-const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
-
-const columnNames = ['Lorem', 'Ipsum', 'Consectetur', 'Eiusmod'];
+const columnNames = ['A', 'B', 'C', 'D', 'E'];
 
 class Cards extends React.Component<any, any> {
     constructor() {
@@ -46,7 +42,7 @@ class Cards extends React.Component<any, any> {
                 props: {
                     orientation: 'horizontal'
                 },
-                children: generateItems(4, (i) => ({
+                children: generateItems(5, (i) => ({
                     id: `column${i}`,
                     type: 'container',
                     name: columnNames[i],
@@ -61,24 +57,36 @@ class Cards extends React.Component<any, any> {
                             className: 'card',
                             style: { backgroundColor: 'white' }
                         },
-                        data: lorem.slice(0, Math.floor(Math.random() * 150) + 30)
+                        data: "Aishwarya"
                     }))
                 }))
             }
         };
     }
 
+    componentDidMount() {
+        var body = document.body;
+        var burgerMenu = document.getElementsByClassName('b-menu')[0];
+        var burgerContain = document.getElementsByClassName('b-container')[0];
+        var burgerNav = document.getElementsByClassName('b-nav')[0];
+
+        burgerMenu.addEventListener('click', function toggleClasses() {
+            [body, burgerContain, burgerNav].forEach(function (el) {
+                el.classList.toggle('open');
+            });
+        }, false);
+    } 
+
 
     render() {
         return (
             <div className="card-scene">
-                <Container orientation="horizontal" onDrop={this.onColumnDrop} dragHandleSelector=".column-drag-handle">
+                <Container orientation="horizontal" onDrop={this.onColumnDrop} nonDragAreaSelector="">
                     {this.state.scene.children.map((column) => {
                         return (
                             <Draggable key={column.id}>
                                 <div className={column.props.className}>
                                     <div className="card-column-header">
-                                        <span className="column-drag-handle">&#x2630;</span>
                                         {column.name}
                                     </div>
                                     <Container {...column.props} groupName="col"

@@ -1,14 +1,10 @@
-$accent-colour: #33CCC4;
+$accent-colour: gray;
 
 //Places body of website
 $main-body-indent: 100px;
 .site-main-body {
-    padding-left: $main-body-indent;
+    padding-left: $main-body-indent + 50px;
     padding-top: $main-body-indent;
-}
-
-::-webkit-scrollbar {
-    display: none;
 }
 
 //Login and Register Form
@@ -308,11 +304,11 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
 
 
 .card-container {
-    width: 320px;
+    width: 15vw;
     padding: 10px;
     margin: 5px;
     margin-right: 45px;
-    background-color: #f3f3f3;
+    background-color: $accent-colour;
     box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
 }
 

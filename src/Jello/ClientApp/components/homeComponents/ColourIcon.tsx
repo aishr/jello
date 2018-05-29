@@ -1,10 +1,9 @@
 ﻿import * as React from 'react';
 import * as $ from 'jquery'
 
-class AccentColourIcon extends React.Component<any, any> {
+class ColourIcon extends React.Component<any, any> {
     constructor() {
         super();
-        console.log(this.props);
     }
 
     setAccentColour() {
@@ -17,8 +16,7 @@ class AccentColourIcon extends React.Component<any, any> {
             data: requestData,
             contentType: 'application/json',
             success: (responseData) => {
-                document.documentElement.style.setProperty('--accent-colour', this.props.colour);
-                document.documentElement.style.setProperty('--text-colour', this.props.text); 
+                document.documentElement.style.setProperty(this.props.variable, this.props.colour);
                 var modal = document.getElementById("accent-colour-modal");
                 modal.style.display = "none";
             },
@@ -34,4 +32,4 @@ class AccentColourIcon extends React.Component<any, any> {
     }
 }
 
-export default AccentColourIcon;
+export default ColourIcon;

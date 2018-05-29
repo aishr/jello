@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\components\homeComponents\AccentColourIcon.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\homeComponents\ColourIcon.tsx" />
     <TypeScriptCompile Include="ClientApp\components\homeComponents\AccentColourModal.tsx" />
     <TypeScriptCompile Include="ClientApp\components\homeComponents\AddNewBoardModal.tsx" />
     <TypeScriptCompile Include="ClientApp\components\homeComponents\BoardIcon.tsx" />

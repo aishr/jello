@@ -1,28 +1,32 @@
 ﻿import * as React from 'react';
-import AccentColourIcon from './AccentColourIcon';
+import ColourIcon from './ColourIcon';
 
 class AccentColourModal extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
-            colours: {
-                "maroon":"white",
-                "red":"black",
-                "orange":"black",
-                "yellow":"black",
-                "olive":"black",
-                "green":"black",
-                "purple":"black",
-                "fuchsia":"black",
-                "lime":"black",
-                "teal":"black",
-                "aqua":"black",
-                "blue":"black",
-                "navy":"black",
-                "black":"black",
-                "gray":"black",
-                "silver":"black"
-            }
+            accentColours: [
+                "maroon",
+                "red",
+                "orange",
+                "yellow",
+                "olive",
+                "green",
+                "purple",
+                "fuchsia",
+                "lime",
+                "teal",
+                "aqua",
+                "blue",
+                "navy",
+                "black",
+                "gray",
+                "silver"
+            ],
+            textColours: [
+                "black",
+                "white"
+            ]
         };
     }
 
@@ -39,19 +43,24 @@ class AccentColourModal extends React.Component<any, any> {
     }
 
     render() {
-        const { colours } = this.state;
-        console.log(colours);
         return (
             <div className="modal" id="accent-colour-modal">
                 <div className="accent-colour-modal-content">
                     <div className="modal-header">
                         <span className="close" onClick={this.closeColourModal.bind(this)}>x</span>
-                        <h2>Choose An Accent Colour</h2>
+                        <h2>Choose Your Colours</h2>
                     </div>
                     <div className="modal-body">
-                        {Object.keys(colours).map((key) => (
-                            <AccentColourIcon colour={key} text={colours[key]} />
-                        ))}
+                        {this.state.accentColours.map(function (item, key) {
+                            return (
+                                <ColourIcon colour={item} variable="--accent-colour" />
+                            );
+                        })}
+                        {this.state.textColours.map(function (item, key) {
+                            return (
+                                <ColourIcon colour={item} variable="--text-colour" />
+                            );
+                        })} 
                     </div>
                 </div>
             </div>

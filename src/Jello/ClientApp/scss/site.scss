@@ -1,4 +1,7 @@
-$accent-colour: gray;
+:root {
+    --accent-colour: gray;
+    --text-colour: black;
+}
 
 //Places body of website
 $main-body-indent: 100px;
@@ -39,7 +42,7 @@ $main-body-indent: 100px;
         font-family: "Roboto", sans-serif;
         text-transform: uppercase;
         outline: 0;
-        background: $accent-colour;
+        background: var(--accent-colour);
         width: 100%;
         border: 0;
         padding: 15px;
@@ -48,7 +51,7 @@ $main-body-indent: 100px;
         cursor: pointer;
 
         &:hover, &:active, &:focus {
-            background: $accent-colour;
+            background: var(--accent-colour);
         }
     }
 }
@@ -308,7 +311,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     padding: 10px;
     margin: 5px;
     margin-right: 45px;
-    background-color: $accent-colour;
+    background-color: var(--accent-colour);
     box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
 }
 
@@ -346,10 +349,10 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
 
 .board-icon {
     padding: 10px;
-    border: 1px solid $accent-colour;
+    border: 1px solid var(--accent-colour);
     height: 120px;
     margin: 10px;
-    background-color: $accent-colour;
+    background-color: var(--accent-colour);
     color: white;
     text-align: center;
     vertical-align: middle;
@@ -381,7 +384,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
         cursor: pointer;
 
         &:checked ~ .checkmark {
-            background-color: $accent-colour;
+            background-color: var(--accent-colour);
 
             &:after {
                 display: block;
@@ -420,7 +423,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
-    background: $accent-colour;
+    background: var(--accent-colour);
     width: 120px;
     border: 0;
     padding: 15px;
@@ -431,7 +434,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     margin-left: 8vw;
 
     &:hover, &:active, &:focus {
-        background: $accent-colour;
+        background: var(--accent-colour);
     }
 }
 
@@ -446,10 +449,11 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4);
 }
 
 /* Modal Content */
-.modal-content {
+.new-board-modal-content {
     position: relative;
     background-color: #fefefe;
     margin: auto;
@@ -459,7 +463,28 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
+}
+
+.accent-colour-modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+.colour-icon {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
 }
 
 /* Add Animation */
@@ -504,7 +529,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
 
 .modal-header {
     padding: 2px 16px;
-    background-color: $accent-colour;
+    background-color: var(--accent-colour);
     color: white;
 }
 
@@ -519,10 +544,10 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
 }
 
 .footer-button {
-    border: 1px solid $accent-colour;
+    border: 1px solid var(--accent-colour);
     width: 270px;
     padding: 10px;
-    background: $accent-colour;
+    background: var(--accent-colour);
     cursor: pointer;
     float: right;
 
@@ -550,7 +575,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
         cursor: pointer;
 
         &:checked ~ .radio-button {
-            background-color: $accent-colour;
+            background-color: var(--accent-colour);
 
             &:after {
                 display: block;
@@ -582,5 +607,58 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
         position: absolute;
         display: none;
     }
+}
+
+.message-box {
+    height: 200px;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    color: #FFF;
+    font-family: Roboto;
+    font-weight: 300;
+    transform: translate(-50%, -50%);
+
+    h1 {
+        font-size: 60px;
+        line-height: 46px;
+        margin-bottom: 40px;
+        color: var(--accent-colour);
+    }
+
+    p {
+        margin: 0 0 10px;
+        color: var(--accent-colour);
+    }
+}
+
+.buttons-con .action-link-wrap {
+    margin-top: 40px;
+
+    a {
+        background: var(--accent-colour);
+        padding: 8px 25px;
+        border-radius: 4px;
+        color: #FFF;
+        font-weight: bold;
+        font-size: 14px;
+        transition: all 0.3s linear;
+        cursor: pointer;
+        text-decoration: none;
+        margin-right: 10px;
+
+        &:hover {
+            background: #5A5C6C;
+            color: #fff;
+        }
+    }
+}
+
+.error-page {
+    opacity: 0.3;
+    float: left;
+    left: 230px;
+    position: absolute;
 }
 

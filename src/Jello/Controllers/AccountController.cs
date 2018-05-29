@@ -94,6 +94,26 @@ namespace Jello.Controllers
             return Unauthorized();
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetAccentColour()
+        {
+            var result = await _userManager.GetUserAsync(HttpContext.User);
+            if (result.Colour != null)
+            {
+                return Ok(result.Colour);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SetAccentColour([FromBody]ColourData requestData)
+        {
+            var result = await _userManager.GetUserAsync(HttpContext.User);
+            result.Colour = requestData.Colour;
+            await _userManager.UpdateAsync(result);
+            return Ok();
+        }
+
         [HttpPost]
         public async Task<ActionResult> Logout()
         {

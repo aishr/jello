@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
 import { Container, Draggable } from 'react-smooth-dnd';
+import * as $ from 'jquery';
 
 const generateItems = (count, creator) => {
     const result = [];
@@ -64,6 +65,13 @@ class Cards extends React.Component<any, any> {
         };
     }
 
+    /*componentWillMount() {
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".smooth-dnd-container.horizontal .smooth-dnd-draggable-wrapper { display: inline-block; }";
+        document.body.appendChild(css); 
+    }*/
+
     componentDidMount() {
         var body = document.body;
         var burgerMenu = document.getElementsByClassName('b-menu')[0];
@@ -75,13 +83,31 @@ class Cards extends React.Component<any, any> {
                 el.classList.toggle('open');
             });
         }, false);
-    } 
+
+        this.getAccentColour();
+    }
+
+    getAccentColour() {
+        $.ajax({
+            url: '/Account/GetAccentColour',
+            type: 'GET',
+            success: (responseData) => {
+                document.documentElement.style.setProperty('--accent-colour', responseData);
+                console.log(document.documentElement.style.getPropertyValue("--accent-colour"));
+            },
+            error: () => {
+                this.setState({
+                    chooseColour: true
+                });
+            }
+        });
+    }
 
 
     render() {
         return (
             <div className="card-scene">
-                <Container orientation="horizontal" onDrop={this.onColumnDrop} nonDragAreaSelector="">
+                <Container orientation="horizontal" onDrop={this.onColumnDrop} nonDragAreaSelector=".smooth-dnd-draggable-wrapper">
                     {this.state.scene.children.map((column) => {
                         return (
                             <Draggable key={column.id}>

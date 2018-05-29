@@ -7,7 +7,7 @@ class AddNewBoard extends React.Component<any, any> {
     }
 
     componentDidMount() { 
-        var modal = document.getElementById('myModal');
+        var modal = document.getElementById('new-board-modal');
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal) {
@@ -40,12 +40,12 @@ class AddNewBoard extends React.Component<any, any> {
     }
 
     openAddNewBoardModal() {
-        var modal = document.getElementById('myModal');
+        var modal = document.getElementById('new-board-modal');
         modal.style.display = "block";
     }
 
     closeAddNewBoardModal() {
-        var modal = document.getElementById('myModal');
+        var modal = document.getElementById('new-board-modal');
         modal.style.display = "none";
     }
 
@@ -53,8 +53,8 @@ class AddNewBoard extends React.Component<any, any> {
         return (
             <div>
                 <button className="new-board-button" onClick={this.openAddNewBoardModal.bind(this)}>+ Add New Board</button>
-                <div id="myModal" className="modal">
-                    <div className="modal-content">
+                <div id="new-board-modal" className="modal">
+                    <div className="new-board-modal-content">
                         <div className="modal-header">
                             <span className="close" onClick={this.closeAddNewBoardModal.bind(this)}>×</span>
                             <h2>Add New Board</h2>

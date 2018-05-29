@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as $ from 'jquery';
-import BoardIcon from './BoardIcon';
-import AddNewBoard from './AddNewBoardModal';
+import BoardIcon from './../homeComponents/BoardIcon';
+import AddNewBoard from './../homeComponents/AddNewBoardModal';
+import AccentColourModal from './../homeComponents/AccentColourModal';
 
 class Home extends React.Component<any, any> {
     constructor() {
@@ -9,8 +10,28 @@ class Home extends React.Component<any, any> {
         this.state = {
             myBoards: [],
             sharedBoards: [],
-            display: false
+            display: false,
+            chooseColour: false
         }
+    }
+
+    componentDidMount() {
+        var body = document.body;
+        var burgerMenu = document.getElementsByClassName('b-menu')[0];
+        var burgerContain = document.getElementsByClassName('b-container')[0];
+        var burgerNav = document.getElementsByClassName('b-nav')[0];
+
+        burgerMenu.addEventListener('click', function toggleClasses() {
+            [body, burgerContain, burgerNav].forEach(function (el) {
+                el.classList.toggle('open');
+            });
+        }, false);
+
+        this.getBoards();
+
+        this.getAccentColour();
+
+        this.isLoggedIn();
     }
 
     isLoggedIn() {
@@ -26,24 +47,23 @@ class Home extends React.Component<any, any> {
                 window.location.replace("/");
             }
         });
-    }
-
-    componentDidMount() {
-        this.isLoggedIn();
-
-        var body = document.body;
-        var burgerMenu = document.getElementsByClassName('b-menu')[0];
-        var burgerContain = document.getElementsByClassName('b-container')[0];
-        var burgerNav = document.getElementsByClassName('b-nav')[0];
-
-        burgerMenu.addEventListener('click', function toggleClasses() {
-            [body, burgerContain, burgerNav].forEach(function (el) {
-                el.classList.toggle('open');
-            });
-        }, false);
-
-        this.getBoards();
     } 
+
+    getAccentColour() {
+        $.ajax({
+            url: '/Account/GetAccentColour',
+            type: 'GET',
+            success: (responseData) => {
+                document.documentElement.style.setProperty('--accent-colour', responseData);
+                console.log(document.documentElement.style.getPropertyValue("--accent-colour"));
+            },
+            error: () => {
+                this.setState({
+                    chooseColour: true
+                });
+            }
+        });
+    }
 
     getBoards() {
         $.ajax({
@@ -62,9 +82,10 @@ class Home extends React.Component<any, any> {
         });
     } 
 
-    render() {
+    render() { 
         return (
             <div>
+                <AccentColourModal display={this.state.chooseColour} />
                 {this.state.display && <div>
                     <AddNewBoard />
                 </div>}

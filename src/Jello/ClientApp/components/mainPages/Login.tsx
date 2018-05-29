@@ -132,8 +132,8 @@ class Login extends React.Component<any, any> {
 
     render() {
         return (
-            <div className="auth-form-container">
-                {this.state.display &&
+            <div>
+                {this.state.display && <div className="auth-form-container">
                     <form className="login-form" id="login-form">
                         <input type="text" placeholder="email" onChange={this.handleEmailChange.bind(this)} />
                         <input type="password" placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
@@ -141,8 +141,9 @@ class Login extends React.Component<any, any> {
                         <div onClick={this.login.bind(this)} className="auth-button">login</div>
                         <a href="/register">New User? Click Here To Register</a>
                     </form>
-                }
+                </div>}
             </div>
+
         );
     }
 }

@@ -20,6 +20,7 @@ class NavMenu extends React.Component<any, any> {
             <div>
                 <div className="b-nav">
                     <li><a className="b-link" href="/home">Home</a></li>
+                    <li><a className="b-link" href="/settings">Settings</a></li>
                     <li><a className="b-link" onClick={this.logout.bind(this)}>Logout</a></li>
                 </div>
                 {/* Burger-Icon */}

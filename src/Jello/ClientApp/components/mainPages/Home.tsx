@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as $ from 'jquery';
 import BoardIcon from './../homeComponents/BoardIcon';
 import AddNewBoard from './../homeComponents/AddNewBoardModal';
-import AccentColourModal from './../homeComponents/AccentColourModal';
+import CustomColourModal from './../homeComponents/CustomColourModal';
 
 class Home extends React.Component<any, any> {
     constructor() {
@@ -54,8 +54,8 @@ class Home extends React.Component<any, any> {
             url: '/Account/GetAccentColour',
             type: 'GET',
             success: (responseData) => {
-                document.documentElement.style.setProperty('--accent-colour', responseData);
-                console.log(document.documentElement.style.getPropertyValue("--accent-colour"));
+                document.documentElement.style.setProperty('--accent-colour', responseData.accentColour);
+                document.documentElement.style.setProperty('--text-colour', responseData.textColour);
             },
             error: () => {
                 this.setState({
@@ -85,7 +85,7 @@ class Home extends React.Component<any, any> {
     render() { 
         return (
             <div>
-                <AccentColourModal display={this.state.chooseColour} />
+                <CustomColourModal display={this.state.chooseColour} />
                 {this.state.display && <div>
                     <AddNewBoard />
                 </div>}

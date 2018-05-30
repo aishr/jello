@@ -353,7 +353,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     height: 120px;
     margin: 10px;
     background-color: var(--accent-colour);
-    color: white;
+    color: var(--text-colour);
     text-align: center;
     vertical-align: middle;
     line-height: 100px;
@@ -427,7 +427,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     width: 120px;
     border: 0;
     padding: 15px;
-    color: white;
+    color: var(--text-colour);
     font-size: 14px;
     cursor: pointer;
     width: 66vw;
@@ -485,8 +485,50 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     display: inline-block;
     margin: 10px;
     cursor: pointer;
+    border: 1px solid black;
+    text-align: center;
 }
 
+.accent-colour-preview {
+    width: 100px;
+    height: 50px;
+    margin: 10px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.custom-colour-input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    opacity: 0.9;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.colour-preview-button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: var(--accent-colour);
+    border: 0;
+    padding: 15px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+
+    &:hover, &:active, &:focus {
+        background: var(--accent-colour);
+    }
+}
 /* Add Animation */
 @-webkit-keyframes animatetop {
     from {
@@ -530,7 +572,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
 .modal-header {
     padding: 2px 16px;
     background-color: var(--accent-colour);
-    color: white;
+    color: var(--text-colour);
 }
 
 .modal-body {
@@ -540,7 +582,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
 .modal-footer {
     padding: 2px 16px;
     background-color: white;
-    color: white;
+    color: var(--text-colour);
 }
 
 .footer-button {

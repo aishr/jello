@@ -9,10 +9,12 @@ namespace Jello.Models
         {
             UserBoards = new List<BoardData>();
             SharedBoards = new List<BoardData>();
-            Colour = null;
+            AccentColour = null;
+            TextColour = null;
         }
         public List<BoardData> UserBoards { get; set; }
         public List<BoardData> SharedBoards { get; set; }
-        public string Colour { get; set; }
+        public string AccentColour { get; set; }
+        public string TextColour { get; set; }
     }
 }

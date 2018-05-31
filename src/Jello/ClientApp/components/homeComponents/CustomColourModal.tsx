@@ -83,15 +83,29 @@ class CustomColourModal extends React.Component<any, any> {
     }
 
     handleAccentColourChange(e: any) {
-        this.setState({
-            cyoAccentColour: e.target.value
-        });
+        $('.error-message').remove();
+        if (e.target.value != null && e.target.value != "" && /^#[0-9A-F]{6}$/i.test(e.target.value)) {
+            this.setState({
+                cyoAccentColour: e.target.value
+            });
+        }
+        else {
+            var errorMessage = '<p class="error-message">Enter a Valid Hex Code (#000000)</p>';
+            $('#accent-button').after(errorMessage);
+        }
     }
 
     handleTextColourChange(e: any) {
-        this.setState({
-            cyoTextColour: e.target.value
-        });
+        $('.error-message').remove();
+        if (e.target.value != null && e.target.value != "" && /^#[0-9A-F]{6}$/i.test(e.target.value)) {
+            this.setState({
+                cyoTextColour: e.target.value
+            });
+        }
+        else {
+            var errorMessage = '<p class="error-message">Enter a Valid Hex Code (#000000)</p>';
+            $('#text-button').after(errorMessage);
+        }
     }
 
     render() {
@@ -109,7 +123,7 @@ class CustomColourModal extends React.Component<any, any> {
                         ))}
                         <div>
                             <input type="text" placeholder="#000000" className="custom-colour-input" onChange={this.handleAccentColourChange.bind(this)} />
-                            <div onClick={this.setAccentColour.bind(this, this.state.cyoAccentColour)} className="colour-preview-button">Preview</div>
+                            <div id="accent-button" onClick={this.setAccentColour.bind(this, this.state.cyoAccentColour)} className="colour-preview-button">Preview</div>
                         </div>
                         <h3>Text Colour</h3>
                         {this.state.textColours.map((item, key) => (
@@ -117,7 +131,7 @@ class CustomColourModal extends React.Component<any, any> {
                         ))}
                         <div>
                             <input type="text" placeholder="#000000" className="custom-colour-input" onChange={this.handleTextColourChange.bind(this)} />
-                            <div onClick={this.setTextColour.bind(this, this.state.cyoTextColour)} className="colour-preview-button">Preview</div>
+                            <div id="text-button" onClick={this.setTextColour.bind(this, this.state.cyoTextColour)} className="colour-preview-button">Preview</div>
                         </div>
                         <h3>Preview</h3>
                         <CustomColourPreview colour={this.state.selectedAccentColour} text={this.state.selectedTextColour} />

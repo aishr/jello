@@ -61,7 +61,8 @@ class Cards extends React.Component<any, any> {
                         data: "Aishwarya"
                     }))
                 }))
-            }
+            },
+            display: false
         };
     }
 
@@ -85,6 +86,23 @@ class Cards extends React.Component<any, any> {
         }, false);
 
         this.getAccentColour();
+
+        this.isLoggedIn();
+    }
+
+    isLoggedIn() {
+        $.ajax({
+            url: '/Account/GetCurrentUser',
+            type: 'GET',
+            success: () => {
+                this.setState({
+                    display: true
+                });
+            },
+            error: () => {
+                window.location.replace("/");
+            }
+        });
     }
 
     getAccentColour() {
@@ -92,54 +110,52 @@ class Cards extends React.Component<any, any> {
             url: '/Account/GetAccentColour',
             type: 'GET',
             success: (responseData) => {
-                document.documentElement.style.setProperty('--accent-colour', responseData);
-                console.log(document.documentElement.style.getPropertyValue("--accent-colour"));
-            },
-            error: () => {
-                this.setState({
-                    chooseColour: true
-                });
+                document.documentElement.style.setProperty('--accent-colour', responseData.accentColour);
+                document.documentElement.style.setProperty('--text-colour', responseData.textColour);
             }
         });
     }
 
-
     render() {
         return (
-            <div className="card-scene">
-                <Container orientation="horizontal" onDrop={this.onColumnDrop} nonDragAreaSelector=".smooth-dnd-draggable-wrapper">
-                    {this.state.scene.children.map((column) => {
-                        return (
-                            <Draggable key={column.id}>
-                                <div className={column.props.className}>
-                                    <div className="card-column-header">
-                                        {column.name}
-                                    </div>
-                                    <Container {...column.props} groupName="col"
-                                        onDrop={e => this.onCardDrop(column.id, e)}
-                                        getChildPayload={index => this.getCardPayload(column.id, index)}
-                                        dragClass="card-ghost"
-                                        dropClass="card-ghost-drop"
-                                        onDragEnter={() => { console.log('drag enter:', column.id); }}
-                                        onDragLeave={() => { console.log('drag leave:', column.id); }}
-                                    >
-                                        {column.children.map(card => {
-                                            return (
-                                                <Draggable key={card.id}>
-                                                    <div {...card.props}>
-                                                        <p>
-                                                            {card.data}
-                                                        </p>
-                                                    </div>
-                                                </Draggable>
-                                            );
-                                        })}
-                                    </Container>
-                                </div>
-                            </Draggable>
-                        );
-                    })}
-                </Container>
+            <div>
+                {this.state.display &&
+                    <div className="card-scene">
+                        <Container orientation="horizontal" onDrop={this.onColumnDrop} nonDragAreaSelector=".smooth-dnd-draggable-wrapper">
+                            {this.state.scene.children.map((column) => {
+                                return (
+                                    <Draggable key={column.id}>
+                                        <div className={column.props.className}>
+                                            <div className="card-column-header">
+                                                {column.name}
+                                            </div>
+                                            <Container {...column.props} groupName="col"
+                                                onDrop={e => this.onCardDrop(column.id, e)}
+                                                getChildPayload={index => this.getCardPayload(column.id, index)}
+                                                dragClass="card-ghost"
+                                                dropClass="card-ghost-drop"
+                                                onDragEnter={() => { console.log('drag enter:', column.id); }}
+                                                onDragLeave={() => { console.log('drag leave:', column.id); }}
+                                            >
+                                                {column.children.map(card => {
+                                                    return (
+                                                        <Draggable key={card.id}>
+                                                            <div {...card.props}>
+                                                                <p>
+                                                                    {card.data}
+                                                                </p>
+                                                            </div>
+                                                        </Draggable>
+                                                    );
+                                                })}
+                                            </Container>
+                                        </div>
+                                    </Draggable>
+                                );
+                            })}
+                        </Container>
+                    </div>
+                }
             </div>
         );
     }

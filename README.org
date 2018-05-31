@@ -9,14 +9,14 @@
 
 ** Specific Features
 *** Home Page
-- delete boards
+**** TODO delete boards
 **** Add New Board Modal
-- Connection to Add New Board that actually creates board
+***** TODO Connection to Add New Board that actually creates board
 *** Board Page
-- Redirect from create new boards
-- figure out url for board
-  - something to do with board id maybe (hash of board id)
+**** TODO Redirect from create new boards
+**** TODO figure out url for board
+***** TODO something to do with board id maybe (hash of board id)
 *** Settings Menu
-- change password
-- change accent colour
-- change text colour
+**** TODO change password
+**** DONE change accent colour
+**** DONE change text colour

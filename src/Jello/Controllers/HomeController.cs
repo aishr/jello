@@ -87,5 +87,19 @@ namespace Jello.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteBoard([FromBody] BoardData requestData)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            user.UserBoards.RemoveAll(v => v.Id == requestData.Id);
+            await _userManager.UpdateAsync(user);
+
+            var collection = Database.GetCollection<JelloBoard>("boards");
+            var filter = Builders<JelloBoard>.Filter.Eq("Id", requestData.Id);
+            var x = await collection.DeleteOneAsync(filter);
+
+            return Ok();
+        }
     }
 }

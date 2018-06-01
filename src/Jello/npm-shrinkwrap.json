@@ -5292,7 +5292,7 @@
     "npm": {
       "version": "6.0.0",
       "resolved": "https://registry.npmjs.org/npm/-/npm-6.0.0.tgz",
-      "integrity": "sha512-EtM7gNAgMdQeUh8SW2bsaogywVS37lPhf2GYAf2vxR1pktxxT02CW8BHrx59MSbG3ZrRBbcOhpe03gts+eAbdA==",
+      "integrity": "sha1-9VGMhgq5FYbbKiSq1N4UM82hCNk=",
       "requires": {
         "JSONStream": "1.3.2",
         "abbrev": "1.1.1",

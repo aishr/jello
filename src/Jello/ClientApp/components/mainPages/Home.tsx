@@ -95,6 +95,7 @@ class Home extends React.Component<any, any> {
                         return (
                             <BoardIcon
                                 name={item.name}
+                                id={item.id}
                             />
                         );
                     })}

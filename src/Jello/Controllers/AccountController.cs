@@ -98,7 +98,7 @@ namespace Jello.Controllers
         public async Task<ActionResult> GetAccentColour()
         {
             var result = await _userManager.GetUserAsync(HttpContext.User);
-            if (result.AccentColour != null)
+            if (result.HasCustomColours)
             {
                 return Ok(new ColourData()
                 {
@@ -115,6 +115,7 @@ namespace Jello.Controllers
             var result = await _userManager.GetUserAsync(HttpContext.User);
             result.AccentColour = requestData.AccentColour;
             result.TextColour = requestData.TextColour;
+            result.HasCustomColours = true;
             await _userManager.UpdateAsync(result);
             return Ok();
         }

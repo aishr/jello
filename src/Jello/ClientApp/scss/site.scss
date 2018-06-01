@@ -347,16 +347,19 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     margin-top: 15px;
 }
 
-.board-icon {
+.board-icon-header {
+    height: 20px;
+}
+
+.board-icon-content {
     padding: 10px;
-    border: 1px solid var(--accent-colour);
-    height: 120px;
-    margin: 10px;
+    width: 100%;
     background-color: var(--accent-colour);
     color: var(--text-colour);
     text-align: center;
     vertical-align: middle;
     line-height: 100px;
+    border: 1px solid var(--accent-colour);
 
     &:hover {
         background-color: white;
@@ -556,7 +559,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
 
 /* The Close Button */
 .close {
-    color: white;
+    color: black;
     float: right;
     font-size: 28px;
     font-weight: bold;

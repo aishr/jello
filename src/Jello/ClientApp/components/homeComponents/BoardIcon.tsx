@@ -26,7 +26,7 @@ class BoardIcon extends React.Component<any, any> {
         return (
             <div className="board-icon">
                 <div className="board-icon-header">
-                    <span className="close">×</span>
+                    <span className="close" onClick={this.deleteBoard.bind(this)}>×</span>
                 </div>
                 <div className="board-icon-content">{this.props.name}</div>
             </div>

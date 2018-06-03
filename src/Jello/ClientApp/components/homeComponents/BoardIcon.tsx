@@ -1,34 +1,27 @@
 ﻿import * as React from 'react';
 import * as $ from 'jquery';
+import DeleteBoardModal from './DeleteBoardModal';
 
 class BoardIcon extends React.Component<any, any> {
     constructor() {
         super();
     }
 
-    deleteBoard() {
-        const requestData = JSON.stringify({
-            "Id": this.props.id
-        });
-
-        $.ajax({
-            url: '/Home/DeleteBoard',
-            type: 'DELETE',
-            data: requestData,
-            contentType: 'application/json',
-            success: (responseData) => {
-                location.reload();
-            }
-        });
+    openDeleteModal() {
+        var modal = document.getElementById('delete-board-modal');
+        modal.style.display = "block";
     }
 
     render() {
         return (
-            <div className="board-icon">
-                <div className="board-icon-header">
-                    <span className="close" onClick={this.deleteBoard.bind(this)}>×</span>
+            <div>
+                <DeleteBoardModal name={this.props.name} id={this.props.id}/>
+                <div className="board-icon">
+                    <div className="board-icon-header">
+                        <span className="close" onClick={this.openDeleteModal.bind(this)}>×</span>
+                    </div>
+                    <div className="board-icon-content">{this.props.name}</div>
                 </div>
-                <div className="board-icon-content">{this.props.name}</div>
             </div>
         );
     }

@@ -85,9 +85,7 @@ class Cards extends React.Component<any, any> {
             });
         }, false);
 
-        this.getAccentColour();
-
-        this.isLoggedIn();
+        this.getAccentColour(); 
     }
 
     isLoggedIn() {
@@ -112,6 +110,7 @@ class Cards extends React.Component<any, any> {
             success: (responseData) => {
                 document.documentElement.style.setProperty('--accent-colour', responseData.accentColour);
                 document.documentElement.style.setProperty('--text-colour', responseData.textColour);
+                this.isLoggedIn();
             }
         });
     }

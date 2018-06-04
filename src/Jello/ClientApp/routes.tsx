@@ -7,6 +7,7 @@ import Register from './components/mainPages/Register';
 import Cards from './components/mainPages/Cards';
 import Settings from './components/mainPages/Settings';
 import ErrorPage from './components/mainPages/ErrorPage';
+import Board from './components/mainPages/Board';
 
 export const routes = <Layout>
     <Switch>
@@ -15,6 +16,7 @@ export const routes = <Layout>
         <Route path='/home' component={Home} />
         <Route path='/settings' component={Settings} />
         <Route path='/cards' component={Cards} />
+        <Route path='/boards/:boardId' component={Board} />
         <Route path='*' component={ErrorPage} />
     </Switch>
 </Layout>;

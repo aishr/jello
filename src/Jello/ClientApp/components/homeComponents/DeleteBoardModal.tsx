@@ -27,6 +27,9 @@ class DeleteBoardModal extends React.Component<any, any> {
             contentType: 'application/json',
             success: (responseData) => {
                 location.reload();
+            },
+            error: () => {
+                alert("There was an error in deleting your board. Please try again");
             }
         });
     }

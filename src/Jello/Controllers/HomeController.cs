@@ -97,9 +97,22 @@ namespace Jello.Controllers
 
             var collection = Database.GetCollection<JelloBoard>("boards");
             var filter = Builders<JelloBoard>.Filter.Eq("Id", requestData.Id);
-            var x = await collection.DeleteOneAsync(filter);
+            var result = await collection.DeleteOneAsync(filter);
+            if (result.DeletedCount == 1)
+            {
+                return Ok();
+            }
+            return BadRequest();
+        }
 
-            return Ok();
+        [HttpPost]
+        public async Task<ActionResult> GetBoard([FromBody] BoardData requestData)
+        {
+            var collection = Database.GetCollection<JelloBoard>("boards");
+            var filter = Builders<JelloBoard>.Filter.Eq("Id", requestData.Id);
+            var result = await collection.Find(filter).FirstAsync();
+
+            return Ok(result);
         }
     }
 }

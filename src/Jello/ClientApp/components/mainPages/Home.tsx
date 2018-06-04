@@ -28,10 +28,6 @@ class Home extends React.Component<any, any> {
         }, false);
 
         this.getBoards();
-
-        this.getAccentColour();
-
-        this.isLoggedIn();
     }
 
     isLoggedIn() {
@@ -56,6 +52,7 @@ class Home extends React.Component<any, any> {
             success: (responseData) => {
                 document.documentElement.style.setProperty('--accent-colour', responseData.accentColour);
                 document.documentElement.style.setProperty('--text-colour', responseData.textColour);
+                this.isLoggedIn();
             },
             error: () => {
                 this.setState({
@@ -74,6 +71,7 @@ class Home extends React.Component<any, any> {
                     myBoards: responseData.userBoards,
                     sharedBoards: responseData.sharedBoards
                 });
+                this.getAccentColour();
             },
             error: () => {
                 console.log("There was an error retrieving your boards");

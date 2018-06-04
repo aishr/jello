@@ -34,6 +34,7 @@
     <None Remove="ClientApp\components\homeComponents\CustomColourPreview.tsx" />
     <None Remove="ClientApp\components\homeComponents\DeleteBoardModal.tsx" />
     <None Remove="ClientApp\components\Login.tsx" />
+    <None Remove="ClientApp\components\mainPages\Board.tsx" />
     <None Remove="ClientApp\components\mainPages\ErrorPage.tsx" />
     <None Remove="ClientApp\components\Register.tsx" />
     <None Remove="ClientApp\components\Settings.tsx" />
@@ -50,6 +51,7 @@
     <TypeScriptCompile Include="ClientApp\components\homeComponents\BoardIcon.tsx" />
     <TypeScriptCompile Include="ClientApp\components\homeComponents\CustomColourPreview.tsx" />
     <TypeScriptCompile Include="ClientApp\components\homeComponents\DeleteBoardModal.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\mainPages\Board.tsx" />
     <TypeScriptCompile Include="ClientApp\components\mainPages\ErrorPage.tsx" />
     <TypeScriptCompile Include="ClientApp\components\mainPages\Login.tsx" />
     <TypeScriptCompile Include="ClientApp\components\mainPages\Cards.tsx" />

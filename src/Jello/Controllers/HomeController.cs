@@ -12,6 +12,7 @@ namespace Jello.Controllers
     {
         private MongoClient DbClient;
         private IMongoDatabase Database;
+        private IMongoCollection<JelloBoard> Collection;
         private readonly UserManager<JelloUser> _userManager;
 
         public HomeController(UserManager<JelloUser> userManager)
@@ -21,6 +22,7 @@ namespace Jello.Controllers
             {
                 DbClient = new MongoClient("mongodb://localhost:27017/");
                 Database = DbClient.GetDatabase("jello");
+                Collection = Database.GetCollection<JelloBoard>("boards");
             }
         }
         public IActionResult Index()
@@ -57,8 +59,7 @@ namespace Jello.Controllers
                 user.UserBoards.Add(requestData.ToBoardData());
                 await _userManager.UpdateAsync(user);
 
-                var collection = Database.GetCollection<JelloBoard>("boards");
-                await collection.InsertOneAsync(requestData);
+                await Collection.InsertOneAsync(requestData);
 
                 return Ok();
             }
@@ -95,24 +96,13 @@ namespace Jello.Controllers
             user.UserBoards.RemoveAll(v => v.Id == requestData.Id);
             await _userManager.UpdateAsync(user);
 
-            var collection = Database.GetCollection<JelloBoard>("boards");
             var filter = Builders<JelloBoard>.Filter.Eq("Id", requestData.Id);
-            var result = await collection.DeleteOneAsync(filter);
+            var result = await Collection.DeleteOneAsync(filter);
             if (result.DeletedCount == 1)
             {
                 return Ok();
             }
             return BadRequest();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> GetBoard([FromBody] BoardData requestData)
-        {
-            var collection = Database.GetCollection<JelloBoard>("boards");
-            var filter = Builders<JelloBoard>.Filter.Eq("Id", requestData.Id);
-            var result = await collection.Find(filter).FirstAsync();
-
-            return Ok(result);
         }
     }
 }

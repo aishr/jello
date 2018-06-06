@@ -9,8 +9,7 @@ namespace Jello.Models
         {
             SharedUsers = new List<string>();
         }
-        [BsonId]
-        public string Id => Creator + "_" + Name;
+        public string Identifier => Creator + "_" + Name;
         public string Creator { get; set; }
         public string Name { get; set; }
         public List<string> SharedUsers { get; set; }
@@ -24,7 +23,7 @@ namespace Jello.Models
         {
             return new BoardData()
             {
-                Id = Id,
+                Id = Identifier,
                 Name = Name
             };
         }

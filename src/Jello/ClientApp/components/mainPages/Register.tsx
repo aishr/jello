@@ -76,6 +76,7 @@ class Register extends React.Component<any, any> {
 
     register() {
         $('.error-message').remove();
+        $('.success-message').remove();
         if (this.state.email == "") {
             this.addError('email1');
             return;

@@ -12,7 +12,7 @@ class DeleteBoardModal extends React.Component<any, any> {
     deleteBoard() {
         $('.error-message').remove();
         if (this.state.boardName !== this.props.name) {
-            var errorMessage = '<p class="error-message">Invalid Name</p>';
+            var errorMessage = '<p class="error-message">Incorrect Name</p>';
             $('.custom-colour-input').after(errorMessage);
             return;
         }
@@ -40,11 +40,17 @@ class DeleteBoardModal extends React.Component<any, any> {
         });
     }
 
+    closeDeleteModal() {
+        var modal = document.getElementById("delete-board-modal");
+        modal.style.display = "none";
+    }
+
     render() {
         return (
             <div className="modal" id="delete-board-modal">
                 <div className="accent-colour-modal-content">
                     <div className="modal-header">
+                        <span className="close" onClick={this.closeDeleteModal.bind(this)}>x</span>
                         <h3>Delete Board</h3>
                     </div>
                     <div className="modal-body">

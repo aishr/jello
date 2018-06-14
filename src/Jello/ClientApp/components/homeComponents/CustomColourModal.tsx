@@ -39,7 +39,6 @@ class CustomColourModal extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        
     }
 
     componentWillReceiveProps(nextProps) {

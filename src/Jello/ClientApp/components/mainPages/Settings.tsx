@@ -49,7 +49,11 @@ class Settings extends React.Component<any, any> {
                 document.documentElement.style.setProperty('--accent-colour', responseData.accentColour);
                 document.documentElement.style.setProperty('--text-colour', responseData.textColour);
                 this.isLoggedIn();
+            },
+            error: () => {
+                this.isLoggedIn();
             }
+
         });
     }
 

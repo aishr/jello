@@ -68,6 +68,9 @@ class Home extends React.Component<any, any> {
             url: '/Home/GetUserBoards',
             type: 'GET',
             success: (responseData) => {
+                if (responseData == null) {
+                    this.isLoggedIn();
+                }
                 this.setState({
                     myBoards: responseData.userBoards,
                     sharedBoards: responseData.sharedBoards
@@ -75,7 +78,7 @@ class Home extends React.Component<any, any> {
                 this.isLoggedIn();
             },
             error: () => {
-                console.log("There was an error retrieving your boards");
+                this.isLoggedIn();
                 return;
             }
         });

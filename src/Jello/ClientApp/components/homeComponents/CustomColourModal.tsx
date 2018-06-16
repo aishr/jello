@@ -1,7 +1,6 @@
 ﻿import * as React from 'react';
-import ColourIcon from './ColourIcon';
-import CustomColourPreview from './CustomColourPreview';
 import * as $ from 'jquery';
+import ColourPicker from './colourComponents/ColourPicker';
 
 class CustomColourModal extends React.Component<any, any> {
     constructor() {
@@ -55,7 +54,7 @@ class CustomColourModal extends React.Component<any, any> {
 
     setCustomColours() {
         const requestData = JSON.stringify({
-            AccentColour: this.state.selectedAccentColour,
+            AccentColour: this.colour.color,
             TextColour: this.state.selectedTextColour
         });
         $.ajax({
@@ -111,6 +110,12 @@ class CustomColourModal extends React.Component<any, any> {
         }
     }
 
+    getColour(c: any) {
+        this.setState({
+            selectedAccentColour: c
+        });
+    }
+
     render() {
         return (
             <div className="modal" id="accent-colour-modal">
@@ -121,15 +126,17 @@ class CustomColourModal extends React.Component<any, any> {
                     </div>
                     <div className="modal-body">
                         <h3>Accent Colour</h3>
-                        {this.state.accentColours.map((item, key) => (
+                        <ColourPicker ref={instance => this.colour = instance } />
+                        {/*{this.state.accentColours.map((item, key) => (
                             <ColourIcon colour={item} setColour={this.setAccentColour} />
                         ))}
                         <div>
                             <input type="text" placeholder="#000000" className="custom-colour-input" onChange={this.handleAccentColourChange.bind(this)} />
                             <div id="accent-button" onClick={this.setAccentColour.bind(this, this.state.cyoAccentColour)} className="colour-preview-button">Preview</div>
-                        </div>
+                        </div>*/}
                         <h3>Text Colour</h3>
-                        {this.state.textColours.map((item, key) => (
+                        <ColourPicker />
+                        {/*{this.state.textColours.map((item, key) => (
                             <ColourIcon colour={item} setColour={this.setTextColour} />
                         ))}
                         <div>
@@ -137,7 +144,7 @@ class CustomColourModal extends React.Component<any, any> {
                             <div id="text-button" onClick={this.setTextColour.bind(this, this.state.cyoTextColour)} className="colour-preview-button">Preview</div>
                         </div>
                         <h3>Preview</h3>
-                        <CustomColourPreview colour={this.state.selectedAccentColour} text={this.state.selectedTextColour} />
+                        <CustomColourPreview colour={this.state.selectedAccentColour} text={this.state.selectedTextColour} />*/}
                     </div>
                     <div className="modal-footer">
                         <h2 className="footer-button" onClick={this.setCustomColours.bind(this)}>Set Colours</h2>

@@ -31,6 +31,7 @@
     <None Remove="ClientApp\components\AddNewBoardModal.tsx" />
     <None Remove="ClientApp\components\BoardIcon.tsx" />
     <None Remove="ClientApp\components\Cards.tsx" />
+    <None Remove="ClientApp\components\homeComponents\ColourPicker.tsx" />
     <None Remove="ClientApp\components\homeComponents\CustomColourPreview.tsx" />
     <None Remove="ClientApp\components\homeComponents\DeleteBoardModal.tsx" />
     <None Remove="ClientApp\components\Login.tsx" />
@@ -45,11 +46,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\components\homeComponents\ColourIcon.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\homeComponents\colourComponents\ColourIcon.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\homeComponents\colourComponents\ColourPicker.tsx" />
     <TypeScriptCompile Include="ClientApp\components\homeComponents\CustomColourModal.tsx" />
     <TypeScriptCompile Include="ClientApp\components\homeComponents\AddNewBoardModal.tsx" />
     <TypeScriptCompile Include="ClientApp\components\homeComponents\BoardIcon.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\homeComponents\CustomColourPreview.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\homeComponents\colourComponents\CustomColourPreview.tsx" />
     <TypeScriptCompile Include="ClientApp\components\homeComponents\DeleteBoardModal.tsx" />
     <TypeScriptCompile Include="ClientApp\components\mainPages\Board.tsx" />
     <TypeScriptCompile Include="ClientApp\components\mainPages\ErrorPage.tsx" />

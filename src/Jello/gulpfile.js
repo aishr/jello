@@ -17,7 +17,7 @@ var paths = {
 
 gulp.task('default', function () {
     // place code for your default task here
-    gulp.src(paths.scss)
+    return gulp.src(paths.scss)
         .pipe(sass())
         .pipe(gulp.dest(paths.scssDest));
 });

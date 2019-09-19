@@ -17,10 +17,10 @@ class Home extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        var body = document.body;
-        var burgerMenu = document.getElementsByClassName('b-menu')[0];
-        var burgerContain = document.getElementsByClassName('b-container')[0];
-        var burgerNav = document.getElementsByClassName('b-nav')[0];
+        let body = document.body;
+        let burgerMenu = document.getElementsByClassName('b-menu')[0];
+        let burgerContain = document.getElementsByClassName('b-container')[0];
+        let burgerNav = document.getElementsByClassName('b-nav')[0];
 
         burgerMenu.addEventListener('click', function toggleClasses() {
             [body, burgerContain, burgerNav].forEach(function (el) {
@@ -96,6 +96,7 @@ class Home extends React.Component<any, any> {
                     {this.state.myBoards.map(function (item: any, key: number) {
                         return (
                             <BoardIcon
+                                key={key}
                                 name={item.name}
                                 id={item.id}
                             />
@@ -107,6 +108,7 @@ class Home extends React.Component<any, any> {
                     {this.state.sharedBoards.map(function (item: any, key: number) {
                         return (
                             <BoardIcon
+                                key={key}
                                 name={item.name}
                             />
                         );

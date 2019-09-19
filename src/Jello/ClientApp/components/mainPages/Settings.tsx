@@ -1,21 +1,23 @@
 ﻿import * as React from 'react';
 import * as $ from 'jquery';
-import CustomColourModal from './../homeComponents/CustomColourModal'
+import CustomColourModal from './../homeComponents/CustomColourModal';
+import ChangePasswordModal from "../settingsComponents/ChangePasswordModal";
 
 class Settings extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
             chooseColour: false,
+            changePassword: false,
             display: false
         }
     }
 
     componentDidMount() {
-        var body = document.body;
-        var burgerMenu = document.getElementsByClassName('b-menu')[0];
-        var burgerContain = document.getElementsByClassName('b-container')[0];
-        var burgerNav = document.getElementsByClassName('b-nav')[0];
+        let body = document.body;
+        let burgerMenu = document.getElementsByClassName('b-menu')[0];
+        let burgerContain = document.getElementsByClassName('b-container')[0];
+        let burgerNav = document.getElementsByClassName('b-nav')[0];
 
         burgerMenu.addEventListener('click', function toggleClasses() {
             [body, burgerContain, burgerNav].forEach(function (el) {
@@ -59,7 +61,15 @@ class Settings extends React.Component<any, any> {
 
     showCustomColourModal() {
         this.setState({
-            chooseColour: true
+            chooseColour: true,
+            changePassword: false
+        });
+    }
+    
+    showChangePasswordModal() {
+        this.setState({
+            changePassword: true,
+            chooseColour: false
         });
     }
 
@@ -67,8 +77,12 @@ class Settings extends React.Component<any, any> {
         return (
             <div>
                 <CustomColourModal display={this.state.chooseColour} />
+                <ChangePasswordModal display={this.state.changePassword} />
                 {this.state.display &&
                     <div className="colour-preview-button" onClick={this.showCustomColourModal.bind(this)}>Change Custom Colours</div>
+                }
+                {this.state.display &&
+                    <div className="colour-preview-button" onClick={this.showChangePasswordModal.bind(this)}>Change Password</div>
                 }
             </div>
         );

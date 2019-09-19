@@ -8,14 +8,21 @@ class AddNewBoardField extends React.Component<any,any> {
     getFormContents() {
 
         if (this.props.fieldType == "text") {
-            return `<input type=${this.props.fieldType} name=${this.props.tag}/>`;
+            return (
+                <input type={this.props.fieldType} name={this.props.tag}/>
+            );
         }
         else if (this.props.fieldType == "radio") {
-            var code = ``;
-            for (var i = 0; i < this.props.options.length; i++) {
-                code +=`<label className='radio-button-container'> ${item.options[i]} <input type=${item.fieldType} name= ${item.tag}/><span className='radio-button' /></label>`;
-            }
-            return code;
+            return (
+                <div>
+                {this.props.options.map((item, key) => (
+                    <label key={key} className='radio-button-container'>{item} 
+                    <input type={this.props.fieldType} name={this.props.tag}/>
+                    <span className='radio-button' />
+                    </label>
+                ))}
+                </div>
+            );
         }
     }
     

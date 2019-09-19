@@ -1,5 +1,4 @@
 ﻿import * as React from 'react';
-import * as $ from 'jquery';
 import DeleteBoardModal from './DeleteBoardModal';
 
 class BoardIcon extends React.Component<any, any> {
@@ -8,7 +7,7 @@ class BoardIcon extends React.Component<any, any> {
     }
 
     openDeleteModal() {
-        var modal = document.getElementById('delete-board-modal');
+        let modal = document.getElementById('delete-board-modal');
         modal.style.display = "block";
     }
 

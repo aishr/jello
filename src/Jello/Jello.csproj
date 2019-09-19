@@ -58,6 +58,7 @@
     <TypeScriptCompile Include="ClientApp\components\mainPages\Register.tsx" />
     <TypeScriptCompile Include="ClientApp\components\mainPages\Settings.tsx" />
     <TypeScriptCompile Include="ClientApp\components\modalComponents\AddNewBoardField.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\settingsComponents\ChangePasswordModal.tsx" />
   </ItemGroup>
   
 

@@ -43,13 +43,13 @@ class CustomColourModal extends React.Component<any, any> {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.display === true) {
-            var modal = document.getElementById("accent-colour-modal");
+            let modal = document.getElementById("accent-colour-modal");
             modal.style.display = "block";
         }
     }
 
     closeColourModal() {
-        var modal = document.getElementById("accent-colour-modal");
+        let modal = document.getElementById("accent-colour-modal");
         modal.style.display = "none";
     }
 
@@ -64,7 +64,7 @@ class CustomColourModal extends React.Component<any, any> {
             data: requestData,
             contentType: 'application/json',
             success: (responseData) => {
-                var modal = document.getElementById("accent-colour-modal");
+                let modal = document.getElementById("accent-colour-modal");
                 modal.style.display = "none";
                 location.reload();
             },
@@ -77,13 +77,13 @@ class CustomColourModal extends React.Component<any, any> {
         this.setState({
             selectedAccentColour: accent,
         });
-    }
+    };
 
     setTextColour = (text) => {
         this.setState({
             selectedTextColour: text
         });
-    }
+    };
 
     handleAccentColourChange(e: any) {
         $('.error-message').remove();
@@ -93,7 +93,7 @@ class CustomColourModal extends React.Component<any, any> {
             });
         }
         else {
-            var errorMessage = '<p class="error-message">Enter a Valid Hex Code (#000000)</p>';
+            let errorMessage = '<p class="error-message">Enter a Valid Hex Code (#000000)</p>';
             $('#accent-button').after(errorMessage);
         }
     }
@@ -106,7 +106,7 @@ class CustomColourModal extends React.Component<any, any> {
             });
         }
         else {
-            var errorMessage = '<p class="error-message">Enter a Valid Hex Code (#000000)</p>';
+            let errorMessage = '<p class="error-message">Enter a Valid Hex Code (#000000)</p>';
             $('#text-button').after(errorMessage);
         }
     }
@@ -122,18 +122,18 @@ class CustomColourModal extends React.Component<any, any> {
                     <div className="modal-body">
                         <h3>Accent Colour</h3>
                         {this.state.accentColours.map((item, key) => (
-                            <ColourIcon colour={item} setColour={this.setAccentColour} />
+                            <ColourIcon key={key} colour={item} setColour={this.setAccentColour} />
                         ))}
-                        <div>
-                            <input type="text" placeholder="#000000" className="custom-colour-input" onChange={this.handleAccentColourChange.bind(this)} />
+                        <div className="modal-container">
+                            <input type="text" placeholder="#000000" onChange={this.handleAccentColourChange.bind(this)} />
                             <div id="accent-button" onClick={this.setAccentColour.bind(this, this.state.cyoAccentColour)} className="colour-preview-button">Preview</div>
                         </div>
                         <h3>Text Colour</h3>
                         {this.state.textColours.map((item, key) => (
-                            <ColourIcon colour={item} setColour={this.setTextColour} />
+                            <ColourIcon key={key} colour={item} setColour={this.setTextColour} />
                         ))}
-                        <div>
-                            <input type="text" placeholder="#000000" className="custom-colour-input" onChange={this.handleTextColourChange.bind(this)} />
+                        <div className="modal-container">
+                            <input type="text" placeholder="#000000" onChange={this.handleTextColourChange.bind(this)} />
                             <div id="text-button" onClick={this.setTextColour.bind(this, this.state.cyoTextColour)} className="colour-preview-button">Preview</div>
                         </div>
                         <h3>Preview</h3>

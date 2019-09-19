@@ -95,7 +95,7 @@ class Login extends React.Component<any, any> {
         else if (type === 'login') {
             message = "The username or password is incorrect/invalid";
         }
-        var errorMessage = '<p class="error-message">' + message + '</p>';
+        let errorMessage = '<p class="error-message">' + message + '</p>';
         $('.auth-button').after(errorMessage);
     }
 

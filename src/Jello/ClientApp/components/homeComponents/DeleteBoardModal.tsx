@@ -41,7 +41,7 @@ class DeleteBoardModal extends React.Component<any, any> {
     }
 
     closeDeleteModal() {
-        var modal = document.getElementById("delete-board-modal");
+        let modal = document.getElementById("delete-board-modal");
         modal.style.display = "none";
     }
 

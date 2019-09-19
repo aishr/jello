@@ -1,13 +1,40 @@
 ﻿import * as React from 'react';
 import * as $ from 'jquery';
+import AddNewBoardField from "../modalComponents/AddNewBoardField";
 
 class AddNewBoard extends React.Component<any, any> {
     constructor() {
         super();
+        this.state = {
+            specSet: [
+                {
+                    question: "Board Name",
+                    fieldType: "text",
+                    tag: "board-name",
+                    options: []
+                },
+                {
+                    question: "Orientation of Board",
+                    fieldType: "radio",
+                    tag: "orientation",
+                    options: [
+                        "Vertical",
+                        "Horizontal"
+                    ]
+                    
+                },
+                {
+                    question: "Number of Columns/Rows",
+                    fieldType: "text",
+                    tag: "column-number",
+                    options: []
+                }
+            ]
+        }
     }
 
     componentDidMount() { 
-        var modal = document.getElementById('new-board-modal');
+        let modal = document.getElementById('new-board-modal');
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal) {
@@ -40,12 +67,12 @@ class AddNewBoard extends React.Component<any, any> {
     }
 
     openAddNewBoardModal() {
-        var modal = document.getElementById('new-board-modal');
+        let modal = document.getElementById('new-board-modal');
         modal.style.display = "block";
     }
 
     closeAddNewBoardModal() {
-        var modal = document.getElementById('new-board-modal');
+        let modal = document.getElementById('new-board-modal');
         modal.style.display = "none";
     }
 
@@ -60,109 +87,15 @@ class AddNewBoard extends React.Component<any, any> {
                             <h2>Add New Board</h2>
                         </div>
                         <div className="modal-body">
-                            <form className="new-board-form">
-                                <h4>Board Name</h4>
-                                <input type="text" name="board-name" />
-                            </form>
-                            <form className="new-board-form">
-                                <h4>Orientation of the Columns</h4>
-                                <label className="radio-button-container">Vertical
-                                    <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                                <label className="radio-button-container">Horizontal
-                                      <input type="radio" name="radio" />
-                                      <span className="radio-button" />
-                                </label>
-                            </form>
-                            <form className="new-board-form">
-                                <h4>Do you want columns to be draggable?</h4>
-                                <label className="radio-button-container">Yes
-                                    <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                                <label className="radio-button-container">No
-                                      <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                            </form>
-                            <form className="new-board-form">
-                                <h4>Orientation of the Columns</h4>
-                                <label className="radio-button-container">Vertical
-                                    <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                                <label className="radio-button-container">Horizontal
-                                      <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                            </form>
-                            <form className="new-board-form">
-                                <h4>Orientation of the Columns</h4>
-                                <label className="radio-button-container">Vertical
-                                    <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                                <label className="radio-button-container">Horizontal
-                                      <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                            </form>
-                            <form className="new-board-form">
-                                <h4>Orientation of the Columns</h4>
-                                <label className="radio-button-container">Vertical
-                                    <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                                <label className="radio-button-container">Horizontal
-                                      <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                            </form>
-                            <form className="new-board-form">
-                                <h4>Orientation of the Columns</h4>
-                                <label className="radio-button-container">Vertical
-                                    <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                                <label className="radio-button-container">Horizontal
-                                      <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                            </form>
-                            <form className="new-board-form">
-                                <h4>Orientation of the Columns</h4>
-                                <label className="radio-button-container">Vertical
-                                    <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                                <label className="radio-button-container">Horizontal
-                                      <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                            </form>
-                            <form className="new-board-form">
-                                <h4>Orientation of the Columns</h4>
-                                <label className="radio-button-container">Vertical
-                                    <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                                <label className="radio-button-container">Horizontal
-                                      <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                            </form>
-                            <form className="new-board-form">
-                                <h4>Orientation of the Columns</h4>
-                                <label className="radio-button-container">Vertical
-                                    <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                                <label className="radio-button-container">Horizontal
-                                      <input type="radio" name="radio" />
-                                    <span className="radio-button" />
-                                </label>
-                            </form>
+                            {this.state.specSet.map((item, key) => (
+                                <AddNewBoardField
+                                    key={key}
+                                    question={item.question}
+                                    fieldType={item.fieldType}
+                                    tag={item.tag}
+                                    options={item.options}
+                                />
+                                ))}
                         </div>
                         <div className="modal-footer">
                             <h2 className="footer-button">Create New Board</h2>

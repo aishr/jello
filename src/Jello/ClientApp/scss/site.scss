@@ -500,18 +500,20 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     text-align: center;
 }
 
-.custom-colour-input {
-    font-family: "Roboto", sans-serif;
-    outline: 0;
-    background: #f2f2f2;
-    opacity: 0.9;
-    border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-    display: inline-block;
-    margin-right: 10px;
+.modal-container {
+    input {
+        font-family: "Roboto", sans-serif;
+        outline: 0;
+        background: #f2f2f2;
+        opacity: 0.9;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+        display: inline-block;
+        margin-right: 10px;
+    }
 }
 
 .colour-preview-button {
@@ -524,9 +526,10 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     color: white;
     font-size: 14px;
     cursor: pointer;
-    display: inline-block;
+    display: block;
     width: 20%;
     text-align: center;
+    margin: 10px;
 
     &:hover, &:active, &:focus {
         background: var(--accent-colour);

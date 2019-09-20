@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as $ from 'jquery';
 
 class ChangePasswordModal extends React.Component<any,any> {
     constructor() {
@@ -22,7 +23,72 @@ class ChangePasswordModal extends React.Component<any,any> {
     }
     
     changePassword() {
-        console.log("Password changed");
+        $('.error-message').remove();
+        if (this.state.oPassword === "") {
+            this.addError("password1");
+            return;
+        }
+        if (this.state.nPassword === "") {
+            this.addError("password2");
+            return;
+        }
+        if (this.state.cPassword === "") {
+            this.addError("password3");
+            return;
+        }        
+        if (this.state.nPassword !== this.state.cPassword){
+            this.addError("password4");
+            return;
+        }
+        
+        const requestData = JSON.stringify({
+            "OldPassword": this.state.oPassword,
+            "NewPassword": this.state.nPassword,
+            "ConfirmPassword": this.state.cPassword
+        });
+
+        $.ajax({
+            url: '/Account/ChangePassword',
+            type: 'POST',
+            data: requestData,
+            contentType: 'application/json',
+            success: () => {
+                this.addSuccess("redirect");
+            },
+            error: (errorData) => {
+                console.log(errorData);
+            }
+        });
+    }
+    
+    addError(type: string) {
+        let message = "";
+        if (type === 'password') {
+            message = "Please enter your current password";
+        }
+        else if (type === 'password2') {
+            message = "Please enter a new password";
+        }
+        else if (type === 'password3') {
+            message = "Please confirm your new password";
+        }
+        else if (type === 'password4') {
+            message = "Passwords do not match"
+        }
+        else {
+            message = "Invalid request";
+        }
+        let errorMessage = '<p class="error-message">' + message + '</p>';
+        $('.modal-container').after(errorMessage);
+    }
+
+    addSuccess(type: string) {
+        let message = "";
+        if (type === 'redirect') {
+            message = "Password was changed successfully"
+        }
+        let successMessage = '<p class="success-message">' + message + '</p>';
+        $('.modal-container').after(successMessage);
     }
     
     handleOldPasswordChange(e: any) {

@@ -12,7 +12,7 @@ class DeleteBoardModal extends React.Component<any, any> {
     deleteBoard() {
         $('.error-message').remove();
         if (this.state.boardName !== this.props.name) {
-            var errorMessage = '<p class="error-message">Incorrect Name</p>';
+            let errorMessage = '<p class="error-message">Incorrect Name</p>';
             $('.custom-colour-input').after(errorMessage);
             return;
         }

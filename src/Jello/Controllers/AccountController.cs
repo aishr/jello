@@ -19,11 +19,9 @@ namespace Jello.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            if (DbClient == null)
-            {
-                DbClient = new MongoClient("mongodb://localhost:27017/");
-                Database = DbClient.GetDatabase("jello");
-            }
+            if (DbClient != null) return;
+            DbClient = new MongoClient("mongodb://localhost:27017/");
+            Database = DbClient.GetDatabase("jello");
         }
         [HttpPost]
         public async Task<ActionResult> Register([FromBody]UserData requestData)
@@ -117,6 +115,19 @@ namespace Jello.Controllers
             result.TextColour = requestData.TextColour;
             result.HasCustomColours = true;
             await _userManager.UpdateAsync(result);
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ChangePassword([FromBody]PasswordData requestData)
+        {
+            var result = await _userManager.GetUserAsync(HttpContext.User);
+            
+            if (requestData.NewPassword != requestData.ConfirmPassword)
+            {
+                return BadRequest();
+            }
+            await _userManager.ChangePasswordAsync(result, requestData.OldPassword, requestData.NewPassword);
             return Ok();
         }
 

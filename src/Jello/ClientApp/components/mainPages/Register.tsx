@@ -66,11 +66,11 @@ class Register extends React.Component<any, any> {
     }
 
     addSuccess(type: string) {
-        let message = ""
+        let message = "";
         if (type === 'redirect') {
             message = "Registration was successful"
         }
-        var successMessage = '<p class="success-message">' + message + '</p>';
+        let successMessage = '<p class="success-message">' + message + '</p>';
         $('.auth-button').after(successMessage);
     }
 

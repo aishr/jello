@@ -9,14 +9,19 @@
 
 ** Specific Features
 *** Home Page
-- DONE delete boards
-- Add New Board Modal
-  - TODO Connection to Add New Board that actually creates board
+**** DONE delete boards
+**** TODO Add New Board Modal
+     - figure out the features needed in the modal
+     - premade options should also be available (scrum, trello, kanban, etc.)
+**** TODO Connection to Add New Board that actually creates board
 *** Board Page
-- TODO Redirect from create new boards
-- TODO figure out url for board
-  - TODO something to do with board id maybe (hash of board id)
+**** TODO Redirect from create new boards
+     - should probably redirect to the new board created
+**** TODO figure out url for board
+     - maybe a hash of the board id or something
 *** Settings Menu
-- TODO change password
-- DONE change accent colour
-- DONE change text colour
+**** TODO change password
+     - front end
+     - back end
+**** DONE change accent colour
+**** DONE change text colour

@@ -77,7 +77,7 @@ class Login extends React.Component<any, any> {
     }
 
     validateEmail(email: string) {
-        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
 
@@ -117,7 +117,7 @@ class Login extends React.Component<any, any> {
         });
     }
 
-    handleRememberMe(e: any) {
+    handleRememberMe() {
         this.setState({
             rememberMe: !this.state.rememberMe
         });
@@ -137,9 +137,9 @@ class Login extends React.Component<any, any> {
                     <form className="login-form" id="login-form">
                         <input type="text" placeholder="email" onChange={this.handleEmailChange.bind(this)} />
                         <input type="password" placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
-                        <label onChange={this.handleRememberMe.bind(this)} className="checkmark-container">Remember Me<input type="checkbox" /><span className="checkmark"></span></label>
+                        <label onChange={this.handleRememberMe.bind(this)} className="checkmark-container">Remember Me<input type="checkbox" /><span className="checkmark"/></label>
                         <div onClick={this.login.bind(this)} className="auth-button">login</div>
-                        <a href="/register">New User? Click Here To Register</a>
+                        <a href={"/register"}>New User? Click Here To Register</a>
                     </form>
                 </div>}
             </div>

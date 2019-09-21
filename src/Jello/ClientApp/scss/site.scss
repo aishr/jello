@@ -309,8 +309,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
 .card-container {
     width: 15vw;
     padding: 10px;
-    margin: 5px;
-    margin-right: 45px;
+    margin: 5px 45px 5px 5px;
     background-color: var(--accent-colour);
     box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
 }
@@ -427,7 +426,6 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     text-transform: uppercase;
     outline: 0;
     background: var(--accent-colour);
-    width: 120px;
     border: 0;
     padding: 15px;
     color: var(--text-colour);
@@ -498,6 +496,8 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     margin: 10px;
     border: 1px solid black;
     text-align: center;
+    background-color: var(--accent-colour);
+    color: var(--text-colour);
 }
 
 .modal-container {
@@ -507,12 +507,11 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
         background: #f2f2f2;
         opacity: 0.9;
         border: 0;
-        margin: 0 0 15px;
         padding: 15px;
         box-sizing: border-box;
         font-size: 14px;
         display: inline-block;
-        margin-right: 10px;
+        margin: 0 10px 15px 0;
     }
 }
 
@@ -523,7 +522,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     background: var(--accent-colour);
     border: 0;
     padding: 15px;
-    color: white;
+    color: var(--text-colour);
     font-size: 14px;
     cursor: pointer;
     display: block;
@@ -663,7 +662,7 @@ $b-pad-top: ($b-height / 2 - $b-bun-width-half); //Vertically centers bun in men
     top: 50%;
     left: 50%;
     color: #FFF;
-    font-family: Roboto;
+    font-family: Roboto, serif;
     font-weight: 300;
     transform: translate(-50%, -50%);
 

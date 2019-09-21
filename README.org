@@ -20,7 +20,7 @@
 **** TODO figure out url for board
      - maybe a hash of the board id or something
 *** Settings Menu
-**** TODO change password
+**** DONE change password
      - front end
      - back end
 **** DONE change accent colour

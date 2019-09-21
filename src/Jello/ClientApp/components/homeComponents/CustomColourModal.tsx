@@ -31,14 +31,11 @@ class CustomColourModal extends React.Component<any, any> {
                 "black",
                 "white"
             ],
-            selectedAccentColour: "gray",
-            selectedTextColour: "white",
+            selectedAccentColour: document.documentElement.style.getPropertyValue('--accent-colour'),
+            selectedTextColour: document.documentElement.style.getPropertyValue('--text-colour'),
             cyoAccentColour: "",
             cyoTextColour: ""
         };
-    }
-
-    componentDidMount() {
     }
 
     componentWillReceiveProps(nextProps) {
@@ -63,7 +60,7 @@ class CustomColourModal extends React.Component<any, any> {
             type: 'POST',
             data: requestData,
             contentType: 'application/json',
-            success: (responseData) => {
+            success: () => {
                 let modal = document.getElementById("accent-colour-modal");
                 modal.style.display = "none";
                 location.reload();

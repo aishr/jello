@@ -12,7 +12,7 @@ class Home extends React.Component<any, any> {
             sharedBoards: [],
             display: false,
             chooseColour: false
-        }
+        };
         this.isLoggedIn = this.isLoggedIn.bind(this);
     }
 

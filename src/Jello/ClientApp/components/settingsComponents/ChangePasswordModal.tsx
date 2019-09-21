@@ -24,6 +24,7 @@ class ChangePasswordModal extends React.Component<any,any> {
     
     changePassword() {
         $('.error-message').remove();
+        $('.success-message').remove();
         if (this.state.oPassword === "") {
             this.addError("password1");
             return;
@@ -56,14 +57,14 @@ class ChangePasswordModal extends React.Component<any,any> {
                 this.addSuccess("redirect");
             },
             error: (errorData) => {
-                console.log(errorData);
+                this.addError(JSON.parse(errorData.responseText).errors[0].description);
             }
         });
     }
     
     addError(type: string) {
         let message = "";
-        if (type === 'password') {
+        if (type === 'password1') {
             message = "Please enter your current password";
         }
         else if (type === 'password2') {
@@ -76,7 +77,7 @@ class ChangePasswordModal extends React.Component<any,any> {
             message = "Passwords do not match"
         }
         else {
-            message = "Invalid request";
+            message = type;
         }
         let errorMessage = '<p class="error-message">' + message + '</p>';
         $('.modal-container').after(errorMessage);
@@ -88,7 +89,7 @@ class ChangePasswordModal extends React.Component<any,any> {
             message = "Password was changed successfully"
         }
         let successMessage = '<p class="success-message">' + message + '</p>';
-        $('.modal-container').after(successMessage);
+        $('#password-modal-container').after(successMessage);
     }
     
     handleOldPasswordChange(e: any) {
@@ -115,7 +116,7 @@ class ChangePasswordModal extends React.Component<any,any> {
                     <h2>Choose Your Colours</h2>
                 </div>
                 <div className="modal-body">
-                    <div className="modal-container">
+                    <div className="modal-container" id="password-modal-container">
                     <h3>Current Password</h3>
                     <input type="password" name="oPassword" onChange={this.handleOldPasswordChange.bind(this)}/>
                     <h3>New Password</h3>

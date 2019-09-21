@@ -8,7 +8,6 @@ class Register extends React.Component<any, any> {
             email: "",
             password: "",
             cPassword: "",
-            loginReturn: false
         }
     }
 
@@ -37,7 +36,7 @@ class Register extends React.Component<any, any> {
     }
 
     validateEmail(email: string) {
-        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
 
@@ -110,9 +109,6 @@ class Register extends React.Component<any, any> {
             contentType: 'application/json',
             success: () => {
                 this.addSuccess('redirect');
-                this.setState({
-                    loginReturn: true
-                });
 
             },
             error: (responseData) => {
@@ -155,7 +151,7 @@ class Register extends React.Component<any, any> {
                     <input type="password" placeholder="password" onChange={this.handlePasswordChange.bind(this)} />
                     <input type="password" placeholder="confirm password" onChange={this.handleConfirmPasswordChange.bind(this)} />
                     <div onClick={this.register.bind(this)} className="auth-button">register</div>
-                    {this.state.loginReturn && <a href="/">Back to Login</a>}
+                    <a href="/">Back to Login</a>
                 </form>
             </div>
         );

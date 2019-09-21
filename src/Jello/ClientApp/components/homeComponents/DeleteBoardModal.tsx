@@ -25,7 +25,7 @@ class DeleteBoardModal extends React.Component<any, any> {
             type: 'DELETE',
             data: requestData,
             contentType: 'application/json',
-            success: (responseData) => {
+            success: () => {
                 location.reload();
             },
             error: () => {

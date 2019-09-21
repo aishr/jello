@@ -127,8 +127,13 @@ namespace Jello.Controllers
             {
                 return BadRequest();
             }
-            await _userManager.ChangePasswordAsync(result, requestData.OldPassword, requestData.NewPassword);
-            return Ok();
+            IdentityResult passwordResult = await _userManager.ChangePasswordAsync(result, requestData.OldPassword, requestData.NewPassword);
+            if (passwordResult.Succeeded)
+            {
+                return Ok();
+            }
+
+            return StatusCode(500, passwordResult);
         }
 
         [HttpPost]

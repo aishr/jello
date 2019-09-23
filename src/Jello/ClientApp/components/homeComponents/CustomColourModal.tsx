@@ -31,8 +31,8 @@ class CustomColourModal extends React.Component<any, any> {
                 "black",
                 "white"
             ],
-            selectedAccentColour: document.documentElement.style.getPropertyValue('--accent-colour'),
-            selectedTextColour: document.documentElement.style.getPropertyValue('--text-colour'),
+            selectedAccentColour: "",
+            selectedTextColour: "",
             cyoAccentColour: "",
             cyoTextColour: ""
         };
@@ -51,10 +51,20 @@ class CustomColourModal extends React.Component<any, any> {
     }
 
     setCustomColours() {
-        const requestData = JSON.stringify({
+         let colourData = {
             AccentColour: this.state.selectedAccentColour,
             TextColour: this.state.selectedTextColour
-        });
+        };
+        if (this.state.selectedAccentColour === "") {
+                colourData.AccentColour = document.documentElement.style.getPropertyValue("--accent-colour")
+        }
+        if (this.state.selectedTextColour === "") {
+                colourData.TextColour = document.documentElement.style.getPropertyValue("--text-colour")
+        }
+        if (this.state.selectedTextColour === "" && this.state.selectedAccentColour === ""){
+            location.reload();
+        }
+        let requestData = JSON.stringify(colourData);
         $.ajax({
             url: '/Account/SetCustomColours',
             type: 'POST',

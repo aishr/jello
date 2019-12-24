@@ -10,19 +10,19 @@ namespace Jello.Controllers
 {
     public class HomeController : Controller
     {
-        private MongoClient DbClient;
-        private IMongoDatabase Database;
-        private IMongoCollection<JelloBoard> Collection;
+        private readonly MongoClient _dbClient;
+        private readonly IMongoCollection<JelloBoard> _collection;
         private readonly UserManager<JelloUser> _userManager;
 
         public HomeController(UserManager<JelloUser> userManager)
         {
             _userManager = userManager;
-            if (DbClient == null)
+            if (_dbClient == null)
             {
-                DbClient = new MongoClient("mongodb://localhost:27017/");
-                Database = DbClient.GetDatabase("jello");
-                Collection = Database.GetCollection<JelloBoard>("boards");
+                _dbClient = new MongoClient("mongodb://localhost:27017/");
+                var database = _dbClient.GetDatabase("jello");
+                _collection = database.GetCollection<JelloBoard>("boards");
+                _userManager = userManager;
             }
         }
         public IActionResult Index()
@@ -59,7 +59,7 @@ namespace Jello.Controllers
                 user.UserBoards.Add(requestData.ToBoardData());
                 await _userManager.UpdateAsync(user);
 
-                await Collection.InsertOneAsync(requestData);
+                await _collection.InsertOneAsync(requestData);
 
                 return Ok();
             }
@@ -74,9 +74,8 @@ namespace Jello.Controllers
         {
             try
             {
-                var collection = Database.GetCollection<JelloBoard>("boards");
                 var filter = Builders<JelloBoard>.Filter.Eq("Name", requestData.Name);
-                var board = await collection.Find(filter).FirstAsync();
+                var board = await _collection.Find(filter).FirstAsync();
                 foreach(var user in requestData.SharedUsers)
                 {
                     board.SharedUsers.Add(user);
@@ -97,7 +96,7 @@ namespace Jello.Controllers
             await _userManager.UpdateAsync(user);
 
             var filter = Builders<JelloBoard>.Filter.Eq("Id", requestData.Id);
-            var result = await Collection.DeleteOneAsync(filter);
+            var result = await _collection.DeleteOneAsync(filter);
             if (result.DeletedCount == 1)
             {
                 return Ok();

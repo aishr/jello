@@ -12,16 +12,16 @@ namespace Jello.Controllers
     {
         private readonly UserManager<JelloUser> _userManager;
         private readonly SignInManager<JelloUser> _signInManager;
-        private MongoClient DbClient;
-        private IMongoDatabase Database;
+        private readonly MongoClient _dbClient;
+        private readonly IMongoDatabase _database;
 
         public AccountController(UserManager<JelloUser> userManager, SignInManager<JelloUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            if (DbClient != null) return;
-            DbClient = new MongoClient("mongodb://localhost:27017/");
-            Database = DbClient.GetDatabase("jello");
+            if (_dbClient != null) return;
+            _dbClient = new MongoClient("mongodb://localhost:27017/");
+            _database = _dbClient.GetDatabase("jello");
         }
         [HttpPost]
         public async Task<ActionResult> Register([FromBody]UserData requestData)
@@ -39,7 +39,7 @@ namespace Jello.Controllers
             user.UserBoards.Add(firstBoard.ToBoardData());
             try
             {
-                var collection = Database.GetCollection<JelloBoard>("boards");
+                var collection = _database.GetCollection<JelloBoard>("boards");
                 var result = await _userManager.CreateAsync(user, requestData.Password);
 
                 if (result.Succeeded)

@@ -8,6 +8,8 @@
 - support markdown and/or org
 
 ** Specific Features
+*** Custom Colour
+**** TODO Change Colour Selection to include a wheel for easy selection
 *** Home Page
 **** DONE delete boards
 **** TODO Add New Board Modal

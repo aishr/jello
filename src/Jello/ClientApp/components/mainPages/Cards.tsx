@@ -142,11 +142,7 @@ class Cards extends React.Component<any, any> {
                                                 {column.children.map(card => {
                                                     return (
                                                         <Draggable key={card.id}>
-                                                            <div {...card.props}>
-                                                                <p>
-                                                                    {card.data}
-                                                                </p>
-                                                            </div>
+                                                            <input {...card.props} type="text" placeholder={card.data}/>
                                                         </Draggable>
                                                     );
                                                 })}
